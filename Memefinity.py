@@ -25,7 +25,7 @@ Wall.containers = walls
 
 level = Level("level1.lvl")
 
-Ball("ball.png",
+Ball("ball.png", size,
               [random.randint(1, 10), random.randint(1, 10)],
               [random.randint(0, width-100), random.randint(0, height-100)],
               random.randint(20, 100))
@@ -66,13 +66,16 @@ while True:
     if len(balls) == 0:
         glev += 1
         for b in range(glev):
-            Ball("ball.png",
+            Ball("ball.png", size, 
                   [random.randint(1, 10), random.randint(1, 10)],
                   [random.randint(0, width-100), random.randint(0, height-100)],
                   random.randint(20, 100))
+            if pygame.sprite.spritecollide(balls.sprites()[-1], walls, False):
+                balls.sprites()[-1].kill()
+                print "OH NOESSS!!!"
     
     for ball in balls:
-        ball.update()
+        ball.update(walls)
         ball.bounceScreen(size)
         
     player.update(walls)
