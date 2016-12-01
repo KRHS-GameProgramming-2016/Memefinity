@@ -1,5 +1,5 @@
 import pygame, sys, math
-from Ball import *
+from Meme import *
 
 class PlayerBall(Ball):
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
