@@ -1,14 +1,22 @@
 import pygame, sys, math
 from Meme import *
 
-class PlayerBall(Ball):
+class PlayerMeme():
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
-        Ball.__init__(self, "playerball_up_1.png", screensize, [0,0], pos, None)
+        
         self.maxSpeed = maxSpeed     
         self.images = [pygame.image.load("rsc/ball/playerball_up_1.png"),
                        pygame.image.load("rsc/ball/playerball_up_2.png")
                       ]
         self.frame = 0
+        self.image = self.images[self.frame]
+        self.rect = self.image.get_rect(center = pos)
+        self.speedx = 0
+        self.speedy = 0
+        self.speed = [self.speedx, self.speedy]
+        self.radius = self.rect.width/2 -1
+        self.didBounceX = False
+        self.didBounceY = False
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .2 * 60 #seconds * 60 fps

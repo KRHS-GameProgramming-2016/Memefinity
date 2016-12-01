@@ -19,18 +19,18 @@ players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 
-PlayerBall.containers = players
-Ball.containers = balls
+PlayerMeme.containers = players
+Meme.containers = balls
 Wall.containers = walls
 
 level = Level("level1.lvl")
 
-Ball("ball.png", size,
+Meme(size, 1, 
               [random.randint(1, 10), random.randint(1, 10)],
               [random.randint(0, width-100), random.randint(0, height-100)],
               random.randint(20, 100))
               
-player = PlayerBall(size, 5, [width/2,height/2])
+player = PlayerMeme(size, 5, [width/2,height/2])
 
 using = "keyboard"
 
@@ -41,7 +41,7 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("up", walls)
                 if event.key == pygame.K_s:
                     player.go("down")
@@ -66,10 +66,10 @@ while True:
     if len(balls) == 0:
         glev += 1
         for b in range(glev):
-            Ball("ball.png", size, 
-                  [random.randint(1, 10), random.randint(1, 10)],
-                  [random.randint(0, width-100), random.randint(0, height-100)],
-                  random.randint(20, 100))
+            Meme(size, 1, 
+              [random.randint(1, 10), random.randint(1, 10)],
+              [random.randint(0, width-100), random.randint(0, height-100)],
+              random.randint(20, 100))
             if pygame.sprite.spritecollide(balls.sprites()[-1], walls, False):
                 balls.sprites()[-1].kill()
                 print "OH NOESSS!!!"

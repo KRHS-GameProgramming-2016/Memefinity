@@ -1,9 +1,10 @@
 import pygame, sys, math
 
-class Ball(pygame.sprite.Sprite):
-    def __init__(self, image, screensize, speed=[0,0], pos=[0,0], size=None):
+class Meme(pygame.sprite.Sprite):
+    def __init__(self, screensize, levelNumber, speed=[0,0], pos=[0,0], size=None):
+        print screensize, levelNumber
         pygame.sprite.Sprite.__init__(self, self.containers)
-        self.image = pygame.image.load("rsc/ball/"+image)
+        self.image = pygame.image.load("rsc/levelmat" + str(levelNumber) + "/meme/meme.png")
         if size:
             self.image = pygame.transform.scale(self.image, [size,size])
         self.rect = self.image.get_rect(center = pos)
