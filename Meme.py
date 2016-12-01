@@ -1,7 +1,7 @@
 import pygame, sys, math
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self, image, speed=[0,0], pos=[0,0], size=None):
+    def __init__(self, image, screensize, speed=[0,0], pos=[0,0], size=None):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("rsc/ball/"+image)
         if size:
@@ -13,12 +13,64 @@ class Ball(pygame.sprite.Sprite):
         self.radius = self.rect.width/2 -1
         self.didBounceX = False
         self.didBounceY = False
+        self.screenHeight = screensize[1]
 
     def shiftX(self, amount):
         self.rect.x += amount
         
-    def update(self):
-        self.move()
+    def update(self, walls):
+       
+        self.calc_grav()
+ 
+        self.rect.x += self.speedx
+ 
+        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        for block in block_hit_list:
+            if self.speedx > 0:
+                self.rect.right = block.rect.left
+                self.jump(walls)
+            elif self.speedx < 0:
+                self.rect.left = block.rect.right
+                self.jump(walls)
+ 
+        self.rect.y += self.speedy
+ 
+        block_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        for block in block_hit_list:
+            if self.speedy > 0:
+                self.rect.bottom = block.rect.top
+            elif self.speedy < 0:
+                self.rect.top = block.rect.bottom
+            self.speedy = 0
+            
+    def jump(self, walls):
+        self.rect.y += 2
+        platform_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        self.rect.y -= 2
+        print len(platform_hit_list)
+        if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
+            self.speedy = -10    
+            
+    def calc_grav(self):
+        if self.speedy == 0:
+            self.speedy = 1
+        else:
+            self.speedy += .35
+        if (self.rect.y >= (self.screenHeight - self.rect.height)) and (self.speedy >= 0):
+            self.speedy = 0
+            self.rect.y = self.screenHeight - self.rect.height  
+    
+        
+    def animate(self):
+        if self.animationTimer < self.animationTimerMax:
+            self.animationTimer += 1
+        else:
+            self.animationTimer = 0
+            if self.frame < self.maxFrame:
+                self.frame += 1
+            else:
+                self.frame = 0
+            self.image = self.images[self.frame]
         
     def move(self):
         self.didBounceX = False

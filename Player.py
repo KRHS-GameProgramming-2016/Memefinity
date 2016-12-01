@@ -3,7 +3,7 @@ from Meme import *
 
 class PlayerBall(Ball):
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
-        Ball.__init__(self, "playerball_up_1.png", [0,0], pos, None)
+        Ball.__init__(self, "playerball_up_1.png", screensize, [0,0], pos, None)
         self.maxSpeed = maxSpeed     
         self.images = [pygame.image.load("rsc/ball/playerball_up_1.png"),
                        pygame.image.load("rsc/ball/playerball_up_2.png")
@@ -16,6 +16,7 @@ class PlayerBall(Ball):
         
     def update(self, walls):
         # Gravity
+        self.animate()
         self.calc_grav()
  
         # Move left/right
@@ -53,9 +54,9 @@ class PlayerBall(Ball):
         else:
             self.speedy += .35
         # See if we are on the ground.
-        if self.rect.y >= self.screenHeight - self.rect.height and self.speedy >= 0:
+        if self.rect.bottom >= self.screenHeight and self.speedy >= 0:
             self.speedy = 0
-            self.rect.y = self.screenHeight - self.rect.height    
+            self.rect.bottom = self.screenHeight
             
     def animate(self):
         if self.animationTimer < self.animationTimerMax:
@@ -76,7 +77,7 @@ class PlayerBall(Ball):
             print len(platform_hit_list)
             # If it is ok to jump, set our speed upwards
             if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
-                self.speedy = -20
+                self.speedy = -10
         if direction == "left":
             self.speedx = -self.maxSpeed
         if direction == "right":
