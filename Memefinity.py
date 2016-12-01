@@ -1,8 +1,9 @@
 import pygame, sys, math, random
-from Ball import *
+from Meme import *
+from Bossmeme import *
 from Wall import *
 from Level import *
-from PlayerBall import *
+from Player import *
 pygame.init()
 
 clock = pygame.time.Clock()
