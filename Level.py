@@ -62,8 +62,8 @@ class Level():
                         random.randint(20, 100))
 				if c == 'Q':
                     Wall_5x5([x*self.tileSize + self.tileSize/2,
-                         y*self.tileSize + self.tileSize/2],
-                         self.tileSize)
+                        y*self.tileSize + self.tileSize/2],
+                        self.tileSize)
 
                                                 
 

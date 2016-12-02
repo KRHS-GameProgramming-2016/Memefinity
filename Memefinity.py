@@ -26,7 +26,7 @@ Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 
-level = Level("level1.lvl")
+level = Level("level1.lvl", size)
 
 print len(walls.sprites())
 
