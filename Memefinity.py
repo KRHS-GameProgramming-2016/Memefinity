@@ -43,20 +43,20 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("up", walls)
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("down")
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("right")
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("left")
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("stop down")
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("stop right")
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("stop left")
         else:
             if event.type == pygame.MOUSEMOTION:
