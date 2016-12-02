@@ -18,12 +18,17 @@ bgColor = r,g,b = 0, 0, 0
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
 walls = pygame.sprite.Group()
+bigwalls = pygame.sprite.Group()
+movingObjects = pygame.sprite.Group()
 
 PlayerMeme.containers = players
-Meme.containers = balls
-Wall.containers = walls
+Meme.containers = balls, movingObjects
+Wall.containers = walls,movingObjects
+Wall_5x5.containers = bigwalls, movingObjects
 
 level = Level("level1.lvl")
+
+print len(walls.sprites())
 
 Meme(size, 1, 
               [random.randint(1, 10), random.randint(1, 10)],
@@ -84,11 +89,11 @@ while True:
     if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
-            level.shiftWorld([walls, balls], -diff)
+            level.shiftWorld([movingObjects], -diff)
     if player.rect.left <= 120:
             diff = 120 - player.rect.left
             player.rect.left = 120
-            level.shiftWorld([walls, balls], diff)
+            level.shiftWorld([movingObjects], diff)
     
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     
@@ -104,6 +109,8 @@ while True:
         screen.blit(ball.image, ball.rect)
     screen.blit(player.image, player.rect)
     for wall in walls:
+        screen.blit(wall.image, wall.rect)
+    for wall in bigwalls:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
     clock.tick(60)

@@ -82,7 +82,7 @@ class PlayerMeme():
             self.rect.y += 2
             platform_hit_list = pygame.sprite.spritecollide(self, walls, False)
             self.rect.y -= 2
-            print len(platform_hit_list)
+            #print len(platform_hit_list)
             # If it is ok to jump, set our speed upwards
             if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
                 self.speedy = -10
