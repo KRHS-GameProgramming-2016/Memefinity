@@ -41,7 +41,7 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                if event.key == pygame.K_w:
                     player.go("up", walls)
                 if event.key == pygame.K_s:
                     player.go("down")

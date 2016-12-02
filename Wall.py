@@ -10,5 +10,3 @@ class Wall(pygame.sprite.Sprite):
         
     def shiftX(self, amount):
         self.rect.x += amount
-    
-            
