@@ -35,7 +35,7 @@ Meme(size, 1,
               [random.randint(0, width-100), random.randint(0, height-100)],
               random.randint(20, 100))
               
-player = PlayerMeme(size, 5, [width/2,height/2])
+player = PlayerMeme(size, 5, [width/2+50,height/2])
 
 using = "keyboard"
 
@@ -79,10 +79,10 @@ while True:
                 balls.sprites()[-1].kill()
                 print "OH NOESSS!!!"
     
+    player.update(walls)
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
-
 
     if player.rect.right >= 500:
             diff = player.rect.right - 500
@@ -97,7 +97,6 @@ while True:
     
     for ball in ballsHit:
         ball.kill()
-    
     
     
     
