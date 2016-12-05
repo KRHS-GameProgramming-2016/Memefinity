@@ -82,10 +82,8 @@ while True:
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
-        
-    player.update(walls)
-    player.bounceScreen(size)
-    
+
+
     if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
