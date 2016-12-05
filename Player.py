@@ -1,9 +1,9 @@
 import pygame, sys, math
 from Meme import *
 
-class PlayerMeme():
+class PlayerMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
-        
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.maxSpeed = maxSpeed     
         self.images = [pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_1.png"), [50,100]),
                        pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_2.png"), [50,100])
@@ -65,6 +65,11 @@ class PlayerMeme():
         if self.rect.bottom >= self.screenHeight and self.speedy >= 0:
             self.speedy = 0
             self.rect.bottom = self.screenHeight
+    
+    def getPos(self, key="center"):
+        if key == "center":
+            return self.rect.center
+        
             
     def animate(self):
         if self.animationTimer < self.animationTimerMax:
