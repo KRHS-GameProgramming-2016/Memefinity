@@ -2,7 +2,7 @@ import pygame, sys, math
 
 class Meme(pygame.sprite.Sprite):
     def __init__(self, screensize, levelNumber, speed=[0,0], pos=[0,0], size=None):
-        print screensize, levelNumber
+        #print screensize, levelNumber
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("rsc/levelmat" + str(levelNumber) + "/meme/meme.png")
         if size:
@@ -48,7 +48,7 @@ class Meme(pygame.sprite.Sprite):
         self.rect.y += 2
         platform_hit_list = pygame.sprite.spritecollide(self, walls, False)
         self.rect.y -= 2
-        print len(platform_hit_list)
+        #print len(platform_hit_list)
         if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
             self.speedy = -10    
             
