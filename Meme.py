@@ -18,6 +18,10 @@ class Meme(pygame.sprite.Sprite):
 
     def shiftX(self, amount):
         self.rect.x += amount
+    
+    def getPos(self, key="center"):
+        if key == "center":
+            return self.rect.center
         
     def update(self, walls):
        

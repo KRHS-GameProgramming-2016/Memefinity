@@ -1,12 +1,12 @@
 import pygame, sys, math
 from Meme import *
 
-class PlayerMeme():
+class PlayerMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
-        
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.maxSpeed = maxSpeed     
-        self.images = [pygame.image.load("rsc/ball/playerball_up_1.png"),
-                       pygame.image.load("rsc/ball/playerball_up_2.png")
+        self.images = [pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_1.png"), [50,100]),
+                       pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_2.png"), [50,100])
                       ]
         self.frame = 0
         self.image = self.images[self.frame]
@@ -65,6 +65,11 @@ class PlayerMeme():
         if self.rect.bottom >= self.screenHeight and self.speedy >= 0:
             self.speedy = 0
             self.rect.bottom = self.screenHeight
+    
+    def getPos(self, key="center"):
+        if key == "center":
+            return self.rect.center
+        
             
     def animate(self):
         if self.animationTimer < self.animationTimerMax:
@@ -99,17 +104,5 @@ class PlayerMeme():
     def goMouse(self, pos):
         self.rect.center = pos
                
-    def bounceScreen(self, size):
-        width = size[0]
-        height = size[1]
-        if self.rect.left < 0 or self.rect.right > width:
-            self.speedx = -self.speedx
-            self.move()
-            self.speedx = 0
-            self.didBounceX = True
-        if self.rect.top < 0 or self.rect.bottom > height:
-            self.speedy = -self.speedy
-            self.move()
-            self.speedy = 0
-            self.didBounceY = True
+
             

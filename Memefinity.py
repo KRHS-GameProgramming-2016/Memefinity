@@ -35,7 +35,7 @@ Meme(size, 1,
               [random.randint(0, width-100), random.randint(0, height-100)],
               random.randint(20, 100))
               
-player = PlayerMeme(size, 5, [width/2,height/2])
+player = PlayerMeme(size, 5, [width/2+50,height/2])
 
 using = "keyboard"
 
@@ -79,13 +79,11 @@ while True:
                 balls.sprites()[-1].kill()
                 print "OH NOESSS!!!"
     
+    player.update(walls)
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
-        
-    player.update(walls)
-    player.bounceScreen(size)
-    
+
     if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
@@ -102,7 +100,6 @@ while True:
     
     
     
-    
     bgColor = r,g,b
     screen.fill(bgColor)
     for ball in balls:
@@ -114,6 +111,7 @@ while True:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
     clock.tick(60)
+
     
     
     
