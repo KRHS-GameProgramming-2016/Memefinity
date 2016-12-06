@@ -2,13 +2,13 @@ import pygame, sys, math, random
 from Wall import *
 from Meme import *
 class Level():
-    def __init__(self, levelFile, size, tileSize=50):
+    def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
         self.size = size
         self.width = size[0]
         self.height = size[1]
         
-        self.loadLevel(levelFile)
+        self.loadLevel(levelNumber)
         self.world_shift = 0
         
     def shiftWorld(self, groups, amount):
@@ -21,8 +21,8 @@ class Level():
         for group in groups:
             group.empty()
                
-    def loadLevel(self, levelFile):        
-        f = open("rsc/levels/"+levelFile, 'r')
+    def loadLevel(self, levelNumber):       
+        f = open("rsc/levels/level"+str(levelNumber)+".lvl", 'r')
         lines = f.readlines()
         f.close()
         

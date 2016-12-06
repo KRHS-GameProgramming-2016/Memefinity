@@ -26,14 +26,46 @@ Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 
-level = Level("level1.lvl", size)
+
+levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE END
+
+if levelNumber == 1:
+    level = Level(levelNumber, size)
+    
+if levelNumber == 2:
+    level = Level(levelNumber, size)
+    
+if levelNumber == 3:
+    level = Level(levelNumber, size)
+
+if levelNumber == 4:
+    level = Level(levelNumber, size)
+
+if levelNumber == 5:
+    level = Level(levelNumber, size)
+
+if levelNumber == 6:
+    level = Level(levelNumber, size)
+
+if levelNumber == 7:
+    level = Level(levelNumber, size)
+
+if levelNumber == 8:
+    level = Level(levelNumber, size)
+
+if levelNumber == 9:
+    level = Level(levelNumber, size)
+
+if levelNumber == 10:
+    level = Level(levelNumber, size)
+
 
 print len(walls.sprites())
 
-Meme(size, 1, 
-              [random.randint(1, 10), random.randint(1, 10)],
-              [random.randint(0, width-100), random.randint(0, height-100)],
-              random.randint(20, 100))
+#Meme(size, 1, 
+              #[random.randint(1, 10), random.randint(1, 10)],
+              #[random.randint(0, width-100), random.randint(0, height-100)],
+              #random.randint(20, 100))
               
 player = PlayerMeme(size, 5, [width/2+50,height/2])
 
