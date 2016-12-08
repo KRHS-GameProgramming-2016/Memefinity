@@ -94,13 +94,11 @@ class Meme(pygame.sprite.Sprite):
             self.didBounceY = True
             
     def bounceBall(self, other):
-        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                if self.dist(other.rect.center) < self.radius + other.radius:
-                    if not self.didBounceX:
-                        self.speedx = -self.speedx
-                    if not self.didBounceY:
-                        self.speedy = -self.speedy
+        if not self.didBounceX:
+            self.speedx = -self.speedx
+        if not self.didBounceY:
+            self.speedy = -self.speedy
+
         
     def dist(self, pt):
         x1 = self.rect.center[0]
