@@ -118,7 +118,7 @@ while True:
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     
     for ball in ballsHit:
-        ball.bounceBall(player)
+        ball.bounceBall(PlayerMeme)
         print"hit!!"
     
     
