@@ -77,7 +77,7 @@ while True:
               random.randint(20, 100))
             if pygame.sprite.spritecollide(balls.sprites()[-1], walls, False):
                 balls.sprites()[-1].kill()
-                print "OH NOESSS!!!"
+                print "Spawn in Wall"
     
     player.update(walls)
     arm.update()
