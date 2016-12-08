@@ -4,6 +4,7 @@ from Bossmeme import *
 from Wall import *
 from Level import *
 from Player import *
+from Arm import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -22,6 +23,7 @@ bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
 
 PlayerMeme.containers = players
+Arm.containers = players
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
@@ -68,7 +70,7 @@ print len(walls.sprites())
               #random.randint(20, 100))
               
 player = PlayerMeme(size, 5, [width/2+50,height/2])
-
+arm = Arm(size, player)
 using = "keyboard"
 
 glev = 0
@@ -78,30 +80,30 @@ while True:
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("up", walls)
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("down")
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("right")
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("left")
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_w:
+                if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                if event.key == pygame.K_s:
+                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("stop down")
-                if event.key == pygame.K_d:
+                if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
                     player.go("stop right")
-                if event.key == pygame.K_a:
+                if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("stop left")
-        else:
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(False)
                 player.goMouse(event.pos)
 
     
     player.update(walls)
+    arm.update()
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
@@ -127,6 +129,7 @@ while True:
     for ball in balls:
         screen.blit(ball.image, ball.rect)
     screen.blit(player.image, player.rect)
+    screen.blit(arm.image, arm.rect)
     for wall in walls:
         screen.blit(wall.image, wall.rect)
     for wall in bigwalls:
