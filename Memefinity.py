@@ -99,17 +99,7 @@ while True:
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(False)
                 player.goMouse(event.pos)
-    
-    if len(balls) == 0:
-        glev += 1
-        for b in range(glev):
-            Meme(size, 1, 
-              [random.randint(1, 10), random.randint(1, 10)],
-              [random.randint(0, width-100), random.randint(0, height-100)],
-              random.randint(20, 100))
-            if pygame.sprite.spritecollide(balls.sprites()[-1], walls, False):
-                balls.sprites()[-1].kill()
-                print "OH NOESSS!!!"
+
     
     player.update(walls)
     for ball in balls:
@@ -128,8 +118,8 @@ while True:
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     
     for ball in ballsHit:
-        ball.kill()
-    
+        ball.bounceBall(player)
+        print"hit!!"
     
     
     bgColor = r,g,b
