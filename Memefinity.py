@@ -4,7 +4,7 @@ from Bossmeme import *
 from Wall import *
 from Level import *
 from Player import *
-from Arm import *
+#from Arm import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -23,7 +23,7 @@ bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
 
 PlayerMeme.containers = players
-Arm.containers = players
+#Arm.containers = players
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
@@ -74,7 +74,7 @@ print len(walls.sprites())
 using = "keyboard"
 
 player = players.sprites()[0]
-arm = players.sprites()[1]
+#arm = players.sprites()[1]
 glev = 0
 
 while True:
@@ -99,13 +99,13 @@ while True:
                     player.go("stop right")
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("stop left")
-            if event.type == pygame.MOUSEMOTION:
-                pygame.mouse.set_visible(False)
-                player.goMouse(event.pos)
+            #if event.type == pygame.MOUSEMOTION:
+                #pygame.mouse.set_visible(False)
+                #player.goMouse(event.pos)
 
     
     player.update(walls)
-    arm.update()
+#    arm.update()
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
@@ -131,7 +131,7 @@ while True:
     for ball in balls:
         screen.blit(ball.image, ball.rect)
     screen.blit(player.image, player.rect)
-    screen.blit(arm.image, arm.rect)
+#    screen.blit(arm.image, arm.rect)
     for wall in walls:
         screen.blit(wall.image, wall.rect)
     for wall in bigwalls:
