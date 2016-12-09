@@ -57,10 +57,10 @@ class Level():
                          self.tileSize)
                          
                 if c == 'P':
-                    PlayerMeme([x*self.tileSize + self.tileSize/2,
-                         y*self.tileSize + self.tileSize/2],
-                         self.tileSize)
-                    Arm(size, player)
+                    PlayerMeme(self.size, 7,
+                                    [x*self.tileSize + self.tileSize/2,
+                                     y*self.tileSize + self.tileSize/2])
+#                    Arm(size, player)
                 
                 if c == 'm':
                     Meme(self.size, 1, 
