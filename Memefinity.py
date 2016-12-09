@@ -69,10 +69,12 @@ print len(walls.sprites())
               #[random.randint(0, width-100), random.randint(0, height-100)],
               #random.randint(20, 100))
               
-player = PlayerMeme(size, 5, [width/2+50,height/2])
-arm = Arm(size, player)
+#player = PlayerMeme(size, 5, [width/2+50,height/2])
+#arm = Arm(size, player)
 using = "keyboard"
 
+player = players.sprites()[0]
+arm = players.sprites()[1]
 glev = 0
 
 while True:
