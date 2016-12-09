@@ -1,13 +1,33 @@
 import pygame, sys, math
 from Meme import *
 
-class PlayerMeme():
+class PlayerMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, maxSpeed =5, pos=[0,0]):
-        
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.maxSpeed = maxSpeed     
-        self.images = [pygame.image.load("rsc/ball/playerball_up_1.png"),
-                       pygame.image.load("rsc/ball/playerball_up_2.png")
-                      ]
+        self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_1.png"), [50,100])]
+        self.restLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/playerball_up_1.png"), [50,100])]
+        self.runRight = [pygame.transform.scale(pygame.image.load("rsc/ball/runright1.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright2.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright3.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright4.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright5.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright6.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright7.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright8.png"), [50, 100])
+                        ]
+        self.runLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/runleft1.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft2.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft3.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft4.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft5.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft6.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft7.png"), [50, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft8.png"), [50, 100])
+                        ]
+        self.state = "rest right"
+        self.prevState = "rest right"
+        self.images = self.runRight
         self.frame = 0
         self.image = self.images[self.frame]
         self.rect = self.image.get_rect(center = pos)
@@ -65,8 +85,28 @@ class PlayerMeme():
         if self.rect.bottom >= self.screenHeight and self.speedy >= 0:
             self.speedy = 0
             self.rect.bottom = self.screenHeight
+    
+    def getPos(self, key="center"):
+        if key == "center":
+            return self.rect.center
+        
             
     def animate(self):
+        if self.prevState != self.state:
+            self.prevState = self.state
+            if self.state == "run right":
+                self.images = self.runRight
+            if self.state == "run left":
+                self.images = self.runLeft
+            if self.state == "rest right":
+                self.images = self.restRight
+            if self.state == "rest left":
+                self.images = self.restLeft
+                
+            self.frame = 0
+            self.maxFrame = len(self.images) - 1
+            self.image = self.images[self.frame]
+        
         if self.animationTimer < self.animationTimerMax:
             self.animationTimer += 1
         else:
@@ -82,34 +122,26 @@ class PlayerMeme():
             self.rect.y += 2
             platform_hit_list = pygame.sprite.spritecollide(self, walls, False)
             self.rect.y -= 2
-            print len(platform_hit_list)
+            #print len(platform_hit_list)
             # If it is ok to jump, set our speed upwards
             if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
                 self.speedy = -10
         if direction == "left":
             self.speedx = -self.maxSpeed
+            self.state = "run left"
         if direction == "right":
             self.speedx = self.maxSpeed 
+            self.state = "run right"
             
         if direction == "stop left":
             self.speedx = 0
+            self.state = "rest left"
         if direction == "stop right":
             self.speedx = 0
+            self.state = "rest right"
     
     def goMouse(self, pos):
         self.rect.center = pos
                
-    def bounceScreen(self, size):
-        width = size[0]
-        height = size[1]
-        if self.rect.left < 0 or self.rect.right > width:
-            self.speedx = -self.speedx
-            self.move()
-            self.speedx = 0
-            self.didBounceX = True
-        if self.rect.top < 0 or self.rect.bottom > height:
-            self.speedy = -self.speedy
-            self.move()
-            self.speedy = 0
-            self.didBounceY = True
+
             
