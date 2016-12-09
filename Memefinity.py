@@ -28,14 +28,46 @@ Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 
-level = Level("level1.lvl", size)
+
+levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE END
+
+if levelNumber == 1:
+    level = Level(levelNumber, size)
+    
+if levelNumber == 2:
+    level = Level(levelNumber, size)
+    
+if levelNumber == 3:
+    level = Level(levelNumber, size)
+
+if levelNumber == 4:
+    level = Level(levelNumber, size)
+
+if levelNumber == 5:
+    level = Level(levelNumber, size)
+
+if levelNumber == 6:
+    level = Level(levelNumber, size)
+
+if levelNumber == 7:
+    level = Level(levelNumber, size)
+
+if levelNumber == 8:
+    level = Level(levelNumber, size)
+
+if levelNumber == 9:
+    level = Level(levelNumber, size)
+
+if levelNumber == 10:
+    level = Level(levelNumber, size)
+
 
 print len(walls.sprites())
 
-Meme(size, 1, 
-              [random.randint(1, 10), random.randint(1, 10)],
-              [random.randint(0, width-100), random.randint(0, height-100)],
-              random.randint(20, 100))
+#Meme(size, 1, 
+              #[random.randint(1, 10), random.randint(1, 10)],
+              #[random.randint(0, width-100), random.randint(0, height-100)],
+              #random.randint(20, 100))
               
 player = PlayerMeme(size, 5, [width/2+50,height/2])
 arm = Arm(size, player)
@@ -66,18 +98,9 @@ while True:
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("stop left")
             if event.type == pygame.MOUSEMOTION:
-                arm.aim(event.pos)
-    
-    if len(balls) == 0:
-        glev += 1
-        for b in range(glev):
-            Meme(size, 1, 
-              [random.randint(1, 10), random.randint(1, 10)],
-              [random.randint(0, width-100), random.randint(0, height-100)],
-              random.randint(20, 100))
-            if pygame.sprite.spritecollide(balls.sprites()[-1], walls, False):
-                balls.sprites()[-1].kill()
-                print "OH NOESSS!!!"
+                pygame.mouse.set_visible(False)
+                player.goMouse(event.pos)
+
     
     player.update(walls)
     arm.update()
@@ -97,8 +120,8 @@ while True:
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     
     for ball in ballsHit:
-        ball.kill()
-    
+        ball.bounceBall(PlayerMeme)
+        print"hit!!"
     
     
     bgColor = r,g,b
