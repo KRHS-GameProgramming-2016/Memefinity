@@ -5,8 +5,8 @@ class PlayerMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, maxSpeed = 1, pos=[0,0]):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.maxSpeed = maxSpeed     
-        self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/Player1.png"), [100,100])]
-        self.restLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/Player1.png"), [100,100])]
+        self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/restright.png"), [100,100])]
+        self.restLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/restleft.png"), [100,100])]
         self.runRight = [pygame.transform.scale(pygame.image.load("rsc/ball/runright1.png"), [100, 100]),
                         pygame.transform.scale(pygame.image.load("rsc/ball/runright2.png"), [100, 100]),
                         pygame.transform.scale(pygame.image.load("rsc/ball/runright3.png"), [100, 100]),
@@ -27,7 +27,7 @@ class PlayerMeme(pygame.sprite.Sprite):
                         ]
         self.state = "rest right"
         self.prevState = "rest right"
-        self.images = self.runRight
+        self.images = self.restRight
         self.frame = 0
         self.image = self.images[self.frame]
         self.rect = self.image.get_rect(center = pos)
@@ -39,7 +39,7 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.didBounceY = False
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
-        self.animationTimerMax = .06 * 60 #seconds * 60 fps
+        self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
         
     def update(self, walls):
