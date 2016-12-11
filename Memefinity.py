@@ -29,7 +29,7 @@ Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 
 
-levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
+levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER!
 
 if levelNumber == 1:
     level = Level(levelNumber, size)
