@@ -77,12 +77,14 @@ player = players.sprites()[0]
 #arm = players.sprites()[1]
 glev = 0
 
+
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_w or event.key == pygame.K_UP:
+                if event.key == pygame.K_w or event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     player.go("up", walls)
                 if event.key == pygame.K_s or event.key == pygame.K_DOWN:
                     player.go("down")
@@ -90,6 +92,8 @@ while True:
                     player.go("right")
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
                     player.go("left")
+                if event.key == pygame.K_u:
+                    print player.playerSpeedx()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
@@ -118,13 +122,14 @@ while True:
             diff = 120 - player.rect.left
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
+
     
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
-        print"hit!!"
-    
+        ball.speedx = -ball.speedx
+        print"boink"
     
     bgColor = r,g,b
     screen.fill(bgColor)
