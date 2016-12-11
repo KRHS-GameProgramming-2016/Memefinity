@@ -2,7 +2,7 @@ import pygame, sys, math
 from Meme import *
 
 class PlayerMeme(pygame.sprite.Sprite):
-    def __init__(self, screensize, maxSpeed = 1, pos=[0,0]):
+    def __init__(self, screensize, maxSpeed = 2, pos=[0,0]):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.maxSpeed = maxSpeed     
         self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/restright.png"), [100,100])]
@@ -34,14 +34,19 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.speedx = 0
         self.speedy = 0
         self.speed = [self.speedx, self.speedy]
-        self.radius = self.rect.width/2 -1
+        self.radius = self.rect.width/3 -1
         self.didBounceX = False
         self.didBounceY = False
         self.maxFrame = len(self.images) - 1
         self.animationTimer = 0
         self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
-        
+    
+    def playerSpeedx(self):
+            return self.speedx
+
+
+
     def update(self, walls):
         # Gravity
         self.animate()
@@ -96,6 +101,9 @@ class PlayerMeme(pygame.sprite.Sprite):
             self.prevState = self.state
             if self.state == "run right":
                 self.images = self.runRight
+                if self.speedx == 0:
+                    self.images = "rest right"
+                    print "stop"
             if self.state == "run left":
                 self.images = self.runLeft
             if self.state == "rest right":
@@ -143,6 +151,7 @@ class PlayerMeme(pygame.sprite.Sprite):
     def goMouse(self, pos):
         self.rect.center = pos
                
+
 #
 
             
