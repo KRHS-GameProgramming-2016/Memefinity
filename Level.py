@@ -55,6 +55,11 @@ class Level():
                     Wall([x*self.tileSize + self.tileSize/2,
                          y*self.tileSize + self.tileSize/2],
                          self.tileSize)
+                
+                if c == 'G':
+                    Ground([x*self.tileSize + self.tileSize/2,
+                         y*self.tileSize + self.tileSize/2],
+                         self.tileSize)
                          
                 if c == 'P':
                     PlayerMeme(self.size, 7,
