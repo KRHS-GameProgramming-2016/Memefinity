@@ -64,7 +64,7 @@ class Level():
                 
                 if c == 'm':
                     Meme(self.size, 1, 
-                        [random.randint(1, 10), random.randint(1, 10)],
+                        [random.randint(7, 10), random.randint(1, 10)],
                         [x*self.tileSize + self.tileSize/2,
                          y*self.tileSize + self.tileSize/2],
                         random.randint(20, 100))
