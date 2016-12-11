@@ -14,7 +14,8 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-bgColor = r,g,b = 0, 0, 0
+#bgColor = r,g,b = 0, 0, 0
+bg = pygame.image.load("rsc/ball/bgtest.png")
 
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
@@ -27,6 +28,7 @@ PlayerMeme.containers = players
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
+Ground.containers = walls,movingObjects
 
 
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
@@ -107,12 +109,13 @@ while True:
                 #pygame.mouse.set_visible(False)
                 #player.goMouse(event.pos)
 
-    
+    screen.blit(bg, (0, 0))
     player.update(walls)
 #    arm.update()
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
+
 
     if player.rect.right >= 500:
             diff = player.rect.right - 500
@@ -131,8 +134,8 @@ while True:
         ball.speedx = -ball.speedx
         print"boink"
     
-    bgColor = r,g,b
-    screen.fill(bgColor)
+    #bgColor = r,g,b
+    #screen.fill(bgColor)
     for ball in balls:
         screen.blit(ball.image, ball.rect)
     screen.blit(player.image, player.rect)
