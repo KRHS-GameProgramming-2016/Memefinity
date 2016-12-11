@@ -1,4 +1,6 @@
-https://github.com/scscorley/jellitubby-attack/blob/master/Vacuum.pyimport pygame, sys, math 
+#https://github.com/scscorley/jellitubby-attack/blob/master/Vacuum.py
+import pygame, sys, math 
+
 
 class Bullet():
     def __init__(self, pos, angle):

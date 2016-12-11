@@ -21,3 +21,5 @@ class Wall_5x5(pygame.sprite.Sprite):
         
     def shiftX(self, amount):
         self.rect.x += amount           
+
+#
