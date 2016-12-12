@@ -132,7 +132,6 @@ while True:
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
         ball.speedx = -ball.speedx
-        print"boink"
     
     #bgColor = r,g,b
     #screen.fill(bgColor)
