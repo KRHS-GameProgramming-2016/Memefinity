@@ -25,3 +25,5 @@ class Arm():
     def update(self):
         self.rect.center = [self.player.rect.x+20, 
                             self.player.rect.y+50]
+
+#
