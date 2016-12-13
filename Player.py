@@ -1,4 +1,4 @@
-      import pygame, sys, math
+    import pygame, sys, math
 from Meme import *
 
 class PlayerMeme(pygame.sprite.Sprite):
