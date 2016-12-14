@@ -101,9 +101,6 @@ class PlayerMeme(pygame.sprite.Sprite):
             self.prevState = self.state
             if self.state == "run right":
                 self.images = self.runRight
-                if self.speedx == 0:
-                    self.images = "rest right"
-                    print "stop"
             if self.state == "run left":
                 self.images = self.runLeft
             if self.state == "rest right":
