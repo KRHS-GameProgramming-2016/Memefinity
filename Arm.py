@@ -1,7 +1,8 @@
 import pygame, sys, math
 
-class Arm():
-    def __init__(self, screensize, player):
+class Arm(pygame.sprite.Sprite):
+    def __init__(self, player):
+        pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
         self.baseImage = pygame.image.load("rsc/ball/PlayerArm.png")
         self.baseImage = pygame.transform.scale(self.baseImage, [100,100])
@@ -23,7 +24,7 @@ class Arm():
         self.image = rot_image
     
     def update(self):
-        self.rect.center = [self.player.rect.x+20, 
-                            self.player.rect.y+50]
+        self.rect.center = [self.player.rect.x+50, 
+                            self.player.rect.y+38]
 
 #
