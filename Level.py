@@ -2,6 +2,7 @@ import pygame, sys, math, random
 from Wall import *
 from Meme import *
 from Player import *
+from Arm import *
 class Level():
     def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
@@ -62,10 +63,10 @@ class Level():
                          self.tileSize)
                          
                 if c == 'P':
-                    PlayerMeme(self.size, 7,
+                    player = PlayerMeme(self.size, 7,
                                     [x*self.tileSize + self.tileSize/2,
                                      y*self.tileSize + self.tileSize/2])
-#                    Arm(size, player)
+                    Arm(player)
                 
                 if c == 'm':
                     Meme(self.size, 1, 
