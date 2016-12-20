@@ -110,7 +110,7 @@ while True:
                 arm.aim(event.pos)
 
     screen.blit(bg, (0, 0))
-    player.update(walls)
+    player.update()
     arm.update()
     for ball in balls:
         ball.update(walls)
