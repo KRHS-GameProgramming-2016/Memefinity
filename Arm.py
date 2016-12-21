@@ -5,13 +5,15 @@ class Arm(pygame.sprite.Sprite):
     def __init__(self, player):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
-        self.runRight = pygame.image.load("rsc/ball/PlayerArm.png")
-        self.runLeft = pygame.image.load("rsc/ball/PlayerArmLeft.png")
-        self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])]
-        self.restLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])]
-        self.images = self.restRight
+        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
+        self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
+        self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.baseImage = self.restRight
+        self.image = self.baseImage
         self.state = "rest right"
         self.prevState = "rest right"
+        self.offset = [0,0]
         self.rect = self.image.get_rect()
         self.angle =0
     
@@ -28,21 +30,26 @@ class Arm(pygame.sprite.Sprite):
         rot_image = rot_image.subsurface(rot_rect)
         self.image = rot_image
     
+    def addOffsets(self):
+        self.rect.center = [self.player.rect.x+self.offset[0], 
+                            self.player.rect.y+self.offset[1]]
+    
     def update(self):
-        self.rect.center = [self.player.rect.x+46, 
-                            self.player.rect.y+38]
-
+        self.state = self.player.state
         if self.prevState != self.state:
             self.prevState = self.state
-            if self.player.state == "run right":
-                self.images = self.runRight
-                self.rect.center = [self.player.rect.x+37, 
-                self.player.rect.y+38]
-            if self.player.state == "run left":
-                self.images = self.runLeft
-                self.rect.center = [self.player.rect.x+51, 
-                self.player.rect.y+38]
-            if self.player.state == "rest right":
-                self.images = self.restRight
-            if self.player.state == "rest left":
-                self.images = self.restLeft
+            if self.state == "run right":
+                self.baseImage = self.runRight
+                self.offsets = [38,44]
+            if self.state == "run left":
+                self.baseImage = self.runLeft
+                self.offsets = [0,0]
+            if self.state == "rest right":
+                self.baseImage = self.restRight
+                self.offsets = [0,0]
+            if self.state == "rest left":
+                self.baseImage = self.restLeft
+                self.offsets = [0,0]
+            self.image = self.baseImage
+        self.addOffsets()
+       
