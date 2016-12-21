@@ -13,7 +13,7 @@ class Arm(pygame.sprite.Sprite):
         self.image = self.baseImage
         self.state = "rest right"
         self.prevState = "rest right"
-        self.offset = [0,0]
+        self.offset = [43,36]
         self.rect = self.image.get_rect()
         self.angle =0
     
@@ -42,16 +42,16 @@ class Arm(pygame.sprite.Sprite):
             self.prevState = self.state
             if self.state == "run right":
                 self.baseImage = self.runRight
-                self.offset = [36,40]
+                self.offset = [36,36]
             if self.state == "run left":
                 self.baseImage = self.runLeft
-                self.offset = [0,0]
+                self.offset = [60,36]
             if self.state == "rest right":
                 self.baseImage = self.restRight
-                self.offset = [25,44]
+                self.offset = [43,36]
             if self.state == "rest left":
                 self.baseImage = self.restLeft
-                self.offset = [0,0]
+                self.offset = [58,36]
             self.image = self.baseImage
         self.addOffsets()
        
