@@ -45,7 +45,7 @@ class Arm(pygame.sprite.Sprite):
                 self.offset = [36,36]
             if self.state == "run left":
                 self.baseImage = self.runLeft
-                self.offset = [60,36]
+                self.offset = [53,36]
             if self.state == "rest right":
                 self.baseImage = self.restRight
                 self.offset = [43,36]
