@@ -24,7 +24,7 @@ class Arm(pygame.sprite.Sprite):
         self.image = rot_image
     
     def update(self):
-        self.rect.center = [self.player.rect.center[0]-5, 
-                            self.player.rect.center[1]-12]
+        self.rect.center = [self.player.rect.x+46, 
+                            self.player.rect.y+38]
 
 #

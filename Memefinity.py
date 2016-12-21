@@ -110,7 +110,7 @@ while True:
                 arm.aim(event.pos)
 
     screen.blit(bg, (0, 0))
-    player.update(walls)
+    player.update()
     arm.update()
     
     print "player:", player.rect.center, "arm:", arm.rect.center
