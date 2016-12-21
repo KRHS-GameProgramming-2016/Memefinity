@@ -112,8 +112,12 @@ while True:
     screen.blit(bg, (0, 0))
     player.update(walls)
     arm.update()
+    
+    print "player:", player.rect.center, "arm:", arm.rect.center
+    
     for ball in balls:
         ball.update(walls)
+         
         ball.bounceScreen(size)
 
 
