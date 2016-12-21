@@ -147,6 +147,8 @@ class PlayerMeme(pygame.sprite.Sprite):
     
     def goMouse(self, pos):
         self.rect.center = pos
+        
+
                
 
 #
