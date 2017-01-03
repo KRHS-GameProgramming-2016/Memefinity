@@ -2,9 +2,10 @@
 import pygame, sys, math 
 
 
-class Bullet():
+class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, angle):
-        self.image = pygame.image.load("")
+        pygame.sprite.Sprite.__init__(self, self.containers)
+        self.image = pygame.image.load("rsc/ball/PlayerArm.png")
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
@@ -22,6 +23,9 @@ class Bullet():
     def update(self):
         self.move() 
             
+    def shiftX(self, amount):
+        self.rect.x += amount 
+        
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed) 

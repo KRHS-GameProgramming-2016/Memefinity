@@ -34,4 +34,11 @@ class Ground(pygame.sprite.Sprite):
         self.rect.x += amount
 
 
-#
+class Background(pygame.sprite.Sprite):
+    def __init__(self, image):
+        pygame.sprite.Sprite.__init__(self, self.containers)
+        self.image = pygame.image.load("rsc/ball/"+image)
+        self.rect = self.image.get_rect()
+        
+    def shiftX(self, amount):
+        self.rect.x += amount

@@ -4,7 +4,8 @@ from Bossmeme import *
 from Wall import *
 from Level import *
 from Player import *
-from Arm import *
+from Arm import * 
+from Bullet import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -14,26 +15,30 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-#bgColor = r,g,b = 0, 0, 0
-bg = pygame.image.load("rsc/ball/bgtest.png")
+bgColor = r,g,b = 0, 0, 0
+
 
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
 walls = pygame.sprite.Group()
+backgrounds = pygame.sprite.Group() 
 bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
+bullets = pygame.sprite.Group()
 
 PlayerMeme.containers = players
 Arm.containers = players
+Bullet.containers = bullets, movingObjects
+Background.containers = backgrounds, movingObjects
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 Ground.containers = walls,movingObjects
 
-
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
 if levelNumber == 1:
+    bg = Background("bgtest.png")
     level = Level(levelNumber, size)
     
 if levelNumber == 2:
@@ -75,9 +80,15 @@ print len(walls.sprites())
 #arm = Arm(size, player)
 using = "keyboard"
 
-player = players.sprites()[1]
-arm = players.sprites()[0]
+if players.sprites()[0] is PlayerMeme:
+    player = players.sprites()[1]
+    arm = players.sprites()[0]
+else: 
+    player = players.sprites()[0]
+    arm = players.sprites()[1]
 glev = 0
+
+print player, arm
 
 
 
@@ -109,11 +120,14 @@ while True:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print event.button
+                if event.button == 1:
+                    Bullet(player.rect.center, arm.angle)
 
-    screen.blit(bg, (0, 0))
+   
     player.update(walls)
     arm.update()
+    for bullet in bullets:
+        bullet.update()
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
@@ -135,10 +149,13 @@ while True:
         ball.bounceBall(PlayerMeme)
         ball.speedx = -ball.speedx
     
-    #bgColor = r,g,b
-    #screen.fill(bgColor)
+    bgColor = r,g,b
+    screen.fill(bgColor)
+    screen.blit(bg.image, bg.rect)
     for ball in balls:
         screen.blit(ball.image, ball.rect)
+    for bullet in bullets:
+        screen.blit(bullet.image, bullet.rect)
     screen.blit(player.image, player.rect)
     screen.blit(arm.image, arm.rect)
     for wall in walls:
