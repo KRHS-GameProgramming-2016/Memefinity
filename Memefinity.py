@@ -75,8 +75,8 @@ print len(walls.sprites())
 #arm = Arm(size, player)
 using = "keyboard"
 
-player = players.sprites()[0]
-arm = players.sprites()[1]
+player = players.sprites()[1]
+arm = players.sprites()[0]
 glev = 0
 
 
@@ -108,6 +108,8 @@ while True:
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print event.button
 
     screen.blit(bg, (0, 0))
     player.update(walls)

@@ -31,10 +31,10 @@ class Arm(pygame.sprite.Sprite):
         self.image = rot_image
     
     def addOffsets(self):
-        print self.rect.center,
+        #print self.rect.center,
         self.rect.center = [self.player.rect.x+self.offset[0], 
                             self.player.rect.y+self.offset[1]]
-        print self.offset,  self.rect.center
+        #print self.offset,  self.rect.center
     
     def update(self):
         self.state = self.player.state
