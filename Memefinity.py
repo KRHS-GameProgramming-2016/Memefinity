@@ -15,7 +15,7 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-#bgColor = r,g,b = 0, 0, 0
+bgColor = r,g,b = 0, 0, 0
 
 
 players = pygame.sprite.Group()
@@ -144,13 +144,15 @@ while True:
 
     
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
+    bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
+    #bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
         ball.speedx = -ball.speedx
     
-    #bgColor = r,g,b
-    #wwwscreen.fill(bgColor)
+    bgColor = r,g,b
+    screen.fill(bgColor)
     screen.blit(bg.image, bg.rect)
     for ball in balls:
         screen.blit(ball.image, ball.rect)
