@@ -29,19 +29,14 @@ class Bullet(pygame.sprite.Sprite):
     def move(self):
         self.speed = [self.speedx, self.speedy]
         self.rect = self.rect.move(self.speed) 
-        
-    def collideMonster(self, other):
-        if self.rect.right > other.rect.left and self.rect.left < other.rect.right:
-            if self.rect.bottom > other.rect.top and self.rect.top < other.rect.bottom:
-                if self.radius + other.radius > self.distanceToPoint(other.rect.center):
-                    other.living = False
-                    self.living = False 
+       
                     
     def collideWall(self, width, height):
         if self.rect.left < 0 or self.rect.right > width:
             self.living = False
         if self.rect.top < 0 or self.rect.bottom > height:
-            self.living = False 
+            return True
+        return False 
             
     def place(self, pos):
         self.rect.center = pos 
@@ -52,6 +47,8 @@ class Bullet(pygame.sprite.Sprite):
         x2 = pt[0]
         y2 = pt[1]
         
-        return math.sqrt(((x2-x1)**2)+((y2-y1)**2)) #https://github.com/scscorley/jellitubby-attack/blob/master/Bullet.py 
+        return math.sqrt(((x2-x1)**2)+((y2-y1)**2)) #https://github.com/scscorley/jellitubby-attack/blob/master/Bullet.py  
+        
+
         
 
