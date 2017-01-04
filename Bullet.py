@@ -5,7 +5,7 @@ import pygame, sys, math
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, angle):
         pygame.sprite.Sprite.__init__(self, self.containers)
-        self.image = pygame.image.load("rsc/ball/PlayerArm.png")
+        self.image = pygame.transform.scale(pygame.image.load("rsc/ball/bullet.png"), [10, 10])
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
