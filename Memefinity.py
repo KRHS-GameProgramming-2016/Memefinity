@@ -15,7 +15,7 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-wwwwwadadbgColor = r,g,b = 0, 0, 0
+bgColor = r,g,b = 0, 0, 0
 
 
 players = pygame.sprite.Group()
