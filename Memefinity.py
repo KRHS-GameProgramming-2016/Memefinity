@@ -15,7 +15,7 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-bgColor = r,g,b = 0, 0, 0
+#bgColor = r,g,b = 0, 0, 0
 
 
 players = pygame.sprite.Group()
@@ -149,8 +149,8 @@ while True:
         ball.bounceBall(PlayerMeme)
         ball.speedx = -ball.speedx
     
-    bgColor = r,g,b
-    screen.fill(bgColor)
+    #bgColor = r,g,b
+    #wwwscreen.fill(bgColor)
     screen.blit(bg.image, bg.rect)
     for ball in balls:
         screen.blit(ball.image, ball.rect)
