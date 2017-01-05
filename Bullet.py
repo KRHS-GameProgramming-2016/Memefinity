@@ -9,8 +9,8 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
-        self.speedx = math.cos(math.radians(self.angle))*25
-        self.speedy = -math.sin(math.radians(self.angle))*25
+        self.speedx = math.cos(math.radians(self.angle))*40
+        self.speedy = -math.sin(math.radians(self.angle))*40
         self.rot_angle = self.angle - 90
         rot_image = pygame.transform.rotate(self.image, self.rot_angle)
         rot_rect = self.rect.copy()
