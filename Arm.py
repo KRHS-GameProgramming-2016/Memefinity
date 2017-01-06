@@ -3,6 +3,7 @@ from Player import *
 
 class Arm(pygame.sprite.Sprite):
     def __init__(self, player):
+        self.kind = "arm"
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
         self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
@@ -45,7 +46,7 @@ class Arm(pygame.sprite.Sprite):
                 self.offset = [36,36]
             if self.state == "run left":
                 self.baseImage = self.runLeft
-                self.offset = [60,36]
+                self.offset = [53,36]
             if self.state == "rest right":
                 self.baseImage = self.restRight
                 self.offset = [43,36]
