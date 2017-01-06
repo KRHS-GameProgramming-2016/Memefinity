@@ -6,10 +6,11 @@ class Gun(pygame.sprite.Sprite):
     def __init__(self, player):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
-        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".jpg"), [100,100])
+        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".png"), [100,100])
         self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
         self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
         self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.gun = "M4A1"
         self.baseImage = self.restRight
         self.image = self.baseImage
         self.state = "rest right"
@@ -17,7 +18,7 @@ class Gun(pygame.sprite.Sprite):
         self.offset = [43,36]
         self.rect = self.image.get_rect()
         self.angle =0
-        self.gun = "M4A1"
+
 
         
     def aim(self, mousePos):
