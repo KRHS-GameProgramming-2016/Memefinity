@@ -80,12 +80,11 @@ print len(walls.sprites())
 #arm = Arm(size, player)
 using = "keyboard"
 
-if players.sprites()[0] is PlayerMeme:
-    player = players.sprites()[1]
-    arm = players.sprites()[0]
-else: 
-    player = players.sprites()[0]
-    arm = players.sprites()[1]
+for p in players.sprites():
+    if p.kind == "arm":
+        arm = p
+    else:
+        player = p
 glev = 0
 
 print player, arm
