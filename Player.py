@@ -4,6 +4,7 @@ from Meme import *
 class PlayerMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, maxSpeed = 2, pos=[0,0]):
         pygame.sprite.Sprite.__init__(self, self.containers)
+        self.kind = "body"
         self.maxSpeed = maxSpeed     
         self.restRight = [pygame.transform.scale(pygame.image.load("rsc/ball/restright.png"), [100,100])]
         self.restLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/restleft.png"), [100,100])]
@@ -147,6 +148,9 @@ class PlayerMeme(pygame.sprite.Sprite):
     
     def goMouse(self, pos):
         self.rect.center = pos
+        
+
+               
                
 
 #

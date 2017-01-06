@@ -1,12 +1,20 @@
 import pygame, sys, math
+from Player import *
 
 class Arm(pygame.sprite.Sprite):
     def __init__(self, player):
+        self.kind = "arm"
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
-        self.baseImage = pygame.image.load("rsc/ball/PlayerArm.png")
-        self.baseImage = pygame.transform.scale(self.baseImage, [100,100])
+        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
+        self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
+        self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.baseImage = self.restRight
         self.image = self.baseImage
+        self.state = "rest right"
+        self.prevState = "rest right"
+        self.offset = [43,36]
         self.rect = self.image.get_rect()
         self.angle =0
     
@@ -23,8 +31,28 @@ class Arm(pygame.sprite.Sprite):
         rot_image = rot_image.subsurface(rot_rect)
         self.image = rot_image
     
+    def addOffsets(self):
+        #print self.rect.center,
+        self.rect.center = [self.player.rect.x+self.offset[0], 
+                            self.player.rect.y+self.offset[1]]
+        #print self.offset,  self.rect.center
+    
     def update(self):
-        self.rect.center = [self.player.rect.x+50, 
-                            self.player.rect.y+38]
-
-#
+        self.state = self.player.state
+        if self.prevState != self.state:
+            self.prevState = self.state
+            if self.state == "run right":
+                self.baseImage = self.runRight
+                self.offset = [36,36]
+            if self.state == "run left":
+                self.baseImage = self.runLeft
+                self.offset = [53,36]
+            if self.state == "rest right":
+                self.baseImage = self.restRight
+                self.offset = [43,36]
+            if self.state == "rest left":
+                self.baseImage = self.restLeft
+                self.offset = [58,36]
+            self.image = self.baseImage
+        self.addOffsets()
+       

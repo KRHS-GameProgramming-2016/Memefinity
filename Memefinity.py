@@ -4,7 +4,8 @@ from Bossmeme import *
 from Wall import *
 from Level import *
 from Player import *
-from Arm import *
+from Arm import * 
+from Bullet import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -14,26 +15,30 @@ height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
 
-#bgColor = r,g,b = 0, 0, 0
-bg = pygame.image.load("rsc/ball/bgtest.png")
+bgColor = r,g,b = 0, 0, 0
+
 
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
 walls = pygame.sprite.Group()
+backgrounds = pygame.sprite.Group() 
 bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
+bullets = pygame.sprite.Group()
 
 PlayerMeme.containers = players
 Arm.containers = players
+Bullet.containers = bullets, movingObjects
+Background.containers = backgrounds, movingObjects
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
 Ground.containers = walls,movingObjects
 
-
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
 if levelNumber == 1:
+    bg = Background("bgtest.png")
     level = Level(levelNumber, size)
     
 if levelNumber == 2:
@@ -75,11 +80,18 @@ print len(walls.sprites())
 #arm = Arm(size, player)
 using = "keyboard"
 
-player = players.sprites()[0]
-arm = players.sprites()[1]
+for p in players.sprites():
+    if p.kind == "arm":
+        arm = p
+    else:
+        player = p
 glev = 0
 
+print player, arm
 
+rightIsDown = False
+leftIsDown = False
+downLast = "right"
 
 while True:
     for event in pygame.event.get():
@@ -88,30 +100,42 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     player.go("up", walls)
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("right")
+                    rightIsDown = True
+                    downLast = "right"
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("left")
+                    leftIsDown = True
+                    downLast = "left"
                 if event.key == pygame.K_u:
                     print player.playerSpeedx()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("stop down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("stop right")
+                    rightIsDown = False
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("stop left")
+                    leftIsDown = False
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    Bullet(player.rect.center, arm.angle)
+                    
+    if rightIsDown and not leftIsDown:
+        player.go("right")
+    elif leftIsDown and not rightIsDown:
+        player.go("left")
+    elif rightIsDown and leftIsDown:
+        player.go(downLast)
+    else:
+        player.go("stop "+downLast)
 
-    screen.blit(bg, (0, 0))
+   
     player.update(walls)
     arm.update()
+    for bullet in bullets:
+        bullet.update()
     for ball in balls:
         ball.update(walls)
         ball.bounceScreen(size)
@@ -128,15 +152,20 @@ while True:
 
     
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
+    bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
+    bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
         ball.speedx = -ball.speedx
     
-    #bgColor = r,g,b
-    #screen.fill(bgColor)
+    bgColor = r,g,b
+    screen.fill(bgColor)
+    screen.blit(bg.image, bg.rect)
     for ball in balls:
         screen.blit(ball.image, ball.rect)
+    for bullet in bullets:
+        screen.blit(bullet.image, bullet.rect)
     screen.blit(player.image, player.rect)
     screen.blit(arm.image, arm.rect)
     for wall in walls:
