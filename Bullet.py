@@ -65,8 +65,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
-        self.speedx = math.cos(math.radians(self.angle))*40
-        self.speedy = -math.sin(math.radians(self.angle))*40
+        self.bulletSpeed = 40
+        self.speedx = math.cos(math.radians(self.angle))* self.bulletSpeed
+        self.speedy = -math.sin(math.radians(self.angle))* self.bulletSpeed
         self.rot_angle = self.angle - 90
         rot_image = pygame.transform.rotate(self.image, self.rot_angle)
         rot_rect = self.rect.copy()
@@ -83,7 +84,7 @@ class Bullet(pygame.sprite.Sprite):
         if self.timer < self.timerMax:
             self.timer += 1
         else:
-            self.die()
+            self.kill()
             
     def shiftX(self, amount):
         self.rect.x += amount 
