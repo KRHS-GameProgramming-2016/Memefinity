@@ -19,9 +19,15 @@ class Bullet(pygame.sprite.Sprite):
         self.image = rot_image
         self.place(pos)
         self.radius = self.rect.height/2 
+        self.timer = 0
+        self.timerMax = 2*60
         
     def update(self):
         self.move() 
+        if self.timer < self.timerMax:
+            self.timer += 1
+        else:
+            self.die()
             
     def shiftX(self, amount):
         self.rect.x += amount 
