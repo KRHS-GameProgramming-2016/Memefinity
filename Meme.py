@@ -15,6 +15,7 @@ class Meme(pygame.sprite.Sprite):
         self.didBounceX = False
         self.didBounceY = False
         self.screenHeight = screensize[1]
+        self.damage = 50
 
     def shiftX(self, amount):
         self.rect.x += amount

@@ -41,11 +41,13 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.animationTimer = 0
         self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
+        self.hp = 100
     
     def playerSpeedx(self):
             return self.speedx
 
-
+    def hitBall(self, ball):
+        self.hp -= ball.damage
 
     def update(self, walls):
         # Gravity
@@ -148,10 +150,4 @@ class PlayerMeme(pygame.sprite.Sprite):
     def goMouse(self, pos):
         self.rect.center = pos
         
-
-               
-               
-
-#
-
-            
+    

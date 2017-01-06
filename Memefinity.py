@@ -145,10 +145,11 @@ while True:
     
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
-    bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+    abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
+        player.hitBall(ball)
         ball.speedx = -ball.speedx
     
     bgColor = r,g,b
@@ -167,6 +168,9 @@ while True:
     pygame.display.flip()
     clock.tick(60)
 
+
+ 
+    
     
     
     
