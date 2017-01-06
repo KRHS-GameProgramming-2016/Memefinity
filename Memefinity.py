@@ -81,16 +81,18 @@ print len(walls.sprites())
 using = "keyboard"
 
 if players.sprites()[0] is PlayerMeme:
-    player = players.sprites()[1]
-    arm = players.sprites()[0]
-else: 
     player = players.sprites()[0]
     arm = players.sprites()[1]
+else: 
+    player = players.sprites()[1]
+    arm = players.sprites()[0]
 glev = 0
 
 print player, arm
 
-
+rightIsDown = False
+leftIsDown = False
+downLast = "right"
 
 while True:
     for event in pygame.event.get():
@@ -99,29 +101,36 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     player.go("up", walls)
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("right")
+                    rightIsDown = True
+                    downLast = "right"
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("left")
+                    leftIsDown = True
+                    downLast = "left"
                 if event.key == pygame.K_u:
                     print player.playerSpeedx()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("stop down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("stop right")
+                    rightIsDown = False
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("stop left")
+                    leftIsDown = False
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     Bullet(player.rect.center, arm.angle)
+                    
+    if rightIsDown and not leftIsDown:
+        player.go("right")
+    elif leftIsDown and not rightIsDown:
+        player.go("left")
+    elif rightIsDown and leftIsDown:
+        player.go(downLast)
+    else:
+        player.go("stop "+downLast)
 
    
     player.update(walls)
