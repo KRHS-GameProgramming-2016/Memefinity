@@ -3,6 +3,7 @@ from Player import *
 
 class Arm(pygame.sprite.Sprite):
     def __init__(self, player):
+        self.kind = "arm"
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
         self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
