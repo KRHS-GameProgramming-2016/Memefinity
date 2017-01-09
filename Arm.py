@@ -6,10 +6,11 @@ class Arm(pygame.sprite.Sprite):
         self.kind = "arm"
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
-        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
-        self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
-        self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
-        self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.gun = "M4A1"
+        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".png"), [100,100])
+        self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft" +self.gun+".png"), [100,100])
+        self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".png"), [100,100])
+        self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft" +self.gun+".png"), [100,100])
         self.baseImage = self.restRight
         self.image = self.baseImage
         self.state = "rest right"

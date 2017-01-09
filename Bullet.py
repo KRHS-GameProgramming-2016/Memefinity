@@ -6,10 +6,11 @@ class Gun(pygame.sprite.Sprite):
     def __init__(self, player):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.player = player
-        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".jpg"), [100,100])
+        self.runRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm" +self.gun+".png"), [100,100])
         self.runLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
         self.restRight = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArm.png"), [100,100])
         self.restLeft = pygame.transform.scale(pygame.image.load("rsc/ball/PlayerArmLeft.png"), [100,100])
+        self.gun = "M4A1"
         self.baseImage = self.restRight
         self.image = self.baseImage
         self.state = "rest right"
@@ -17,7 +18,7 @@ class Gun(pygame.sprite.Sprite):
         self.offset = [43,36]
         self.rect = self.image.get_rect()
         self.angle =0
-        self.gun = "M4A1"
+
 
         
     def aim(self, mousePos):
@@ -65,8 +66,9 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
-        self.speedx = math.cos(math.radians(self.angle))*40
-        self.speedy = -math.sin(math.radians(self.angle))*40
+        self.bulletSpeed = 40
+        self.speedx = math.cos(math.radians(self.angle))* self.bulletSpeed
+        self.speedy = -math.sin(math.radians(self.angle))* self.bulletSpeed
         self.rot_angle = self.angle - 90
         rot_image = pygame.transform.rotate(self.image, self.rot_angle)
         rot_rect = self.rect.copy()
@@ -74,11 +76,16 @@ class Bullet(pygame.sprite.Sprite):
         rot_image = rot_image.subsurface(rot_rect)
         self.image = rot_image
         self.place(pos)
-        self.radius = self.rect.height/2
-
+        self.radius = self.rect.height/2 
+        self.timer = 0
+        self.timerMax = 2*60
         
     def update(self):
         self.move() 
+        if self.timer < self.timerMax:
+            self.timer += 1
+        else:
+            self.kill()
             
     def shiftX(self, amount):
         self.rect.x += amount 
