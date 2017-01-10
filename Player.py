@@ -26,6 +26,24 @@ class PlayerMeme(pygame.sprite.Sprite):
                         pygame.transform.scale(pygame.image.load("rsc/ball/runleft7.png"), [100, 100]),
                         pygame.transform.scale(pygame.image.load("rsc/ball/runleft8.png"), [100, 100])
                         ]
+        self.runBackLeft = [pygame.transform.scale(pygame.image.load("rsc/ball/runright8.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright7.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright6.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright5.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright4.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright3.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright2.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runright1.png"), [100, 100])
+                        ]
+        self.runBackRight = [pygame.transform.scale(pygame.image.load("rsc/ball/runleft8.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft7.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft6.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft5.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft4.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft3.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft2.png"), [100, 100]),
+                        pygame.transform.scale(pygame.image.load("rsc/ball/runleft1.png"), [100, 100])
+                        ]
         self.state = "rest right"
         self.prevState = "rest right"
         self.images = self.restRight
@@ -34,6 +52,8 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center = pos)
         self.speedx = 0
         self.speedy = 0
+        self.face = "right"
+        self.angle = 0
         self.speed = [self.speedx, self.speedy]
         self.radius = self.rect.width/3 -1
         self.didBounceX = False
@@ -106,6 +126,10 @@ class PlayerMeme(pygame.sprite.Sprite):
                 self.images = self.runRight
             if self.state == "run left":
                 self.images = self.runLeft
+            if self.state == "run back right":
+                self.images = self.runBackRight
+            if self.state == "run back left":
+                self.images = self.runBackLeft
             if self.state == "rest right":
                 self.images = self.restRight
             if self.state == "rest left":
@@ -124,7 +148,19 @@ class PlayerMeme(pygame.sprite.Sprite):
             else:
                 self.frame = 0
             self.image = self.images[self.frame]
+    def aim(self, mousePos):
+        #finds which way a player is facing
+        mousePosPlayerX = mousePos[0] - self.rect.center[0]
+        mousePosPlayerY = mousePos[1] - self.rect.center[1]
+        self.angle = ((math.atan2(mousePosPlayerY, mousePosPlayerX))/math.pi)*180
+        if self.angle <= 180 and self.angle >= 90 or self.angle >= -180 and self.angle <= -90:
+            self.side = "left"
+        if self.angle > 0 and self.angle < 90 or self.angle < 0 and self.angle > -90:
+            self.side = "right"
+
         
+        
+    
     def go(self, direction, walls = None):
         if direction == "up":
             self.rect.y += 2
@@ -134,12 +170,23 @@ class PlayerMeme(pygame.sprite.Sprite):
             # If it is ok to jump, set our speed upwards
             if len(platform_hit_list) > 0 or self.rect.bottom >= self.screenHeight:
                 self.speedy = -10
-        if direction == "left":
+        if direction == "left" and self.side == "left":
             self.speedx = -self.maxSpeed
             self.state = "run left"
-        if direction == "right":
+            print "running left"
+        if direction == "right" and self.side == "right":
             self.speedx = self.maxSpeed 
             self.state = "run right"
+            print "running right"
+        if direction == "left" and self.side == "right":
+            self.speedx = -self.maxSpeed
+            self.state = "run back left"
+            print "running left backwards"
+        if direction == "right" and self.side == "left":
+            self.speedx = self.maxSpeed
+            self.state = "run back right"
+            print "running right backwards"
+
             
         if direction == "stop left":
             self.speedx = 0

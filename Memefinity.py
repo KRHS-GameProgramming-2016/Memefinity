@@ -118,6 +118,7 @@ while True:
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
+                player.aim(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     Bullet(player.rect.center, arm.angle)

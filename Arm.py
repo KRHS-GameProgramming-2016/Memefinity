@@ -25,7 +25,6 @@ class Arm(pygame.sprite.Sprite):
         mousePosPlayerY = mousePos[1] - self.rect.center[1]
         self.angle = ((math.atan2(mousePosPlayerY, mousePosPlayerX))/math.pi)*180
         self.angle = -self.angle
-        
         rot_image = pygame.transform.rotate(self.baseImage, self.angle)
         rot_rect = self.rect.copy()
         rot_rect.center = rot_image.get_rect().center
