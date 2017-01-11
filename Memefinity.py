@@ -92,7 +92,7 @@ glev = 0
 
 print player, arm
 
-
+shooting = None
 
 while True:
     for event in pygame.event.get():
@@ -124,7 +124,21 @@ while True:
                 player.aim(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    Bullet(player.rect.center, arm.angle)
+                    shooting = "normal"
+                if event.button == 3:
+                    shooting = "alt"
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    shooting = None
+                if event.button == 3:
+                    shooting = None
+        
+    if shooting:
+        if shooting == "normal":
+            Bullet(player.rect.center, arm.angle)
+            shooting = None
+        elif shooting == "alt":
+            Bullet(player.rect.center, arm.angle)
 
    
     player.update(walls)
