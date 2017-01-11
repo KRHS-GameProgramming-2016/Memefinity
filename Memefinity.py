@@ -6,6 +6,7 @@ from Level import *
 from Player import *
 from Arm import * 
 from Bullet import *
+from GunPickup import *
 pygame.init()
 
 clock = pygame.time.Clock()
