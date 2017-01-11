@@ -89,7 +89,7 @@ glev = 0
 
 print player, arm
 
-
+shooting = False
 
 while True:
     for event in pygame.event.get():
@@ -120,6 +120,12 @@ while True:
                 arm.aim(event.pos)
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
+                    Bullet(player.rect.center, arm.angle)
+                if event.button == 2:
+                    shooting = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 2:
+                    shooting = True
                     Bullet(player.rect.center, arm.angle)
 
    
