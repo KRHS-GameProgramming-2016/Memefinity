@@ -155,8 +155,22 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.angle = ((math.atan2(mousePosPlayerY, mousePosPlayerX))/math.pi)*180
         if self.angle <= 180 and self.angle >= 90 or self.angle >= -180 and self.angle <= -90:
             self.side = "left"
+            if self.state == "rest right":
+                self.state = "rest left"
+            elif self.state == "run right":
+                self.state = "run back left"
+            elif self.state == "run back right":
+                self.state = "run left"
         if self.angle > 0 and self.angle < 90 or self.angle < 0 and self.angle > -90:
             self.side = "right"
+            if self.state == "rest left":
+                self.state = "rest right"
+            elif self.state == "run left":
+                self.state = "run back right"
+            elif self.state == "run back left":
+                self.state = "run right"
+        
+            
 
         
         
