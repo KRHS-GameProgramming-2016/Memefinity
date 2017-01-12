@@ -157,6 +157,7 @@ class PlayerMeme(pygame.sprite.Sprite):
             self.side = "left"
             if self.state == "rest right":
                 self.state = "rest left"
+                self.prevState = "rest right"
             elif self.state == "run right":
                 self.state = "run back left"
             elif self.state == "run back right":
@@ -165,6 +166,7 @@ class PlayerMeme(pygame.sprite.Sprite):
             self.side = "right"
             if self.state == "rest left":
                 self.state = "rest right"
+                self.prevState = "rest left"
             elif self.state == "run left":
                 self.state = "run back right"
             elif self.state == "run back left":
