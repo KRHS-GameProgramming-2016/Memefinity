@@ -3,6 +3,7 @@ from Wall import *
 from Meme import *
 from Player import *
 from Arm import *
+from GunPickup import *
 class Level():
     def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
@@ -79,6 +80,11 @@ class Level():
                     Wall_5x5([x*self.tileSize + self.tileSize/2,
                         y*self.tileSize + self.tileSize/2],
                         self.tileSize)
+                        
+                if c == '1': 
+                    GunPickup([x*self.tileSize + self.tileSize/2,
+                            y*self.tileSize + self.tileSize/2],
+                            self.tileSize)
 
                                                 
 

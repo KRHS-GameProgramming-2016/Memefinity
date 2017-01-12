@@ -26,6 +26,7 @@ backgrounds = pygame.sprite.Group()
 bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
+pickups = pygame.sprite.Group()
 
 PlayerMeme.containers = players
 Arm.containers = players
@@ -34,7 +35,8 @@ Background.containers = backgrounds, movingObjects
 Meme.containers = balls, movingObjects
 Wall.containers = walls,movingObjects
 Wall_5x5.containers = bigwalls, movingObjects
-Ground.containers = walls,movingObjects
+Ground.containers = walls, movingObjects
+GunPickup.containers = pickups, movingObjects
 
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
@@ -184,6 +186,8 @@ while True:
         screen.blit(ball.image, ball.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
+    for pickup in pickups:
+        screen.blit(pickup.image, pickup.rect)
     screen.blit(player.image, player.rect)
     screen.blit(arm.image, arm.rect)
     for wall in walls:
