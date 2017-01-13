@@ -43,7 +43,7 @@ GunPickup.containers = pickups, movingObjects
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
 if levelNumber == 1:
-    bg = Background("bgtest.png")
+    bg = Background("BgLevel1.png")
     level = Level(levelNumber, size)
     
 if levelNumber == 2:
