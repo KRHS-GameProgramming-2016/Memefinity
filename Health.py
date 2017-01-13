@@ -1,8 +1,8 @@
 #https://github.com/scscorley/jellitubby-attack/blob/master/HealthBar.py
 import pygame, sys, math
 
-from Meme import Meme
-from Bossmeme import Bossmeme
+from Vacuum import Vacuum
+from Boss import Boss
 
 class HB():
     def __init__(self, owner, pos = (250, 250), path = "Resources/Health Bar/"):

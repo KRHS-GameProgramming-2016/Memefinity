@@ -1,4 +1,6 @@
-import pygame, sys, math, random
+debug = False
+
+import pygame, sys, math, random, time
 from Meme import *
 from Bossmeme import *
 from Wall import *
@@ -97,7 +99,12 @@ rightIsDown = False
 leftIsDown = False
 downLast = "right"
 
+if debug: startTime = time.time()
+
 while True:
+    if debug: print "last loop total: ", time.time() - startTime
+    if debug: print "--------------------------------------------------------------------------------"
+    if debug: startTime = time.time()
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
@@ -134,6 +141,7 @@ while True:
                 if event.button == 3:
                     shooting = None
     
+    if debug: print "after events: ", time.time() - startTime
     if rightIsDown and not leftIsDown:
         player.go("right")
     elif leftIsDown and not rightIsDown:
@@ -150,7 +158,8 @@ while True:
         elif shooting == "alt":
             Bullet(player.rect.center, arm.angle)
 
-   
+    if debug: print "after input handled: ", time.time() - startTime
+
     player.update(walls)
     arm.update()
     for bullet in bullets:
@@ -159,7 +168,8 @@ while True:
         ball.update(walls)
         ball.bounceScreen(size)
 
-
+    if debug: print "after updates done: ", time.time() - startTime
+    
     if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
@@ -169,19 +179,24 @@ while True:
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
 
-    
+    if debug: print "after scrolling done: ", time.time() - startTime
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+    
+    if debug: print "after collision groups created: ", time.time() - startTime
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
         player.hitBall(ball)
         ball.speedx = -ball.speedx
     
+    if debug: print "after ball/player collision group: ", time.time() - startTime
+    
     bgColor = r,g,b
     screen.fill(bgColor)
     screen.blit(bg.image, bg.rect)
+    if debug: print "after bg render: ", time.time() - startTime
     for ball in balls:
         screen.blit(ball.image, ball.rect)
     for bullet in bullets:
@@ -196,6 +211,9 @@ while True:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
     clock.tick(60)
+    
+    if debug: print "after render: ", time.time() - startTime, ", fps:", clock.get_fps()
+
 
 
  
