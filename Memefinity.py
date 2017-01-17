@@ -101,6 +101,9 @@ downLast = "right"
 
 if debug: startTime = time.time()
 
+fireRate = arm.gun.fireRate
+fireTimer = 0
+
 while True:
     if debug: print "last loop total: ", time.time() - startTime
     if debug: print "--------------------------------------------------------------------------------"
@@ -156,7 +159,11 @@ while True:
             Bullet(player.rect.center, arm.angle)
             shooting = None
         elif shooting == "alt":
-            Bullet(player.rect.center, arm.angle)
+            if fireTimer < fireRate:
+                fireTimer += 1
+            else:
+                fireTimer = 0
+                Bullet(player.rect.center, arm.angle)
 
     if debug: print "after input handled: ", time.time() - startTime
 
