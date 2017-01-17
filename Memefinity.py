@@ -1,4 +1,6 @@
-import pygame, sys, math, random
+debug = False
+
+import pygame, sys, math, random, time
 from Meme import *
 from Bossmeme import *
 from Wall import *
@@ -41,7 +43,7 @@ GunPickup.containers = pickups, movingObjects
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
 if levelNumber == 1:
-    bg = Background("bgtest.png")
+    bg = Background("BgLevel1.png")
     level = Level(levelNumber, size)
     
 if levelNumber == 2:
@@ -93,31 +95,37 @@ glev = 0
 print player, arm
 
 shooting = None
+rightIsDown = False
+leftIsDown = False
+downLast = "right"
+
+if debug: startTime = time.time()
 
 while True:
+    if debug: print "last loop total: ", time.time() - startTime
+    if debug: print "--------------------------------------------------------------------------------"
+    if debug: startTime = time.time()
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
         if using == "keyboard":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_w or event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                     player.go("up", walls)
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("right")
+                    rightIsDown = True
+                    downLast = "right"
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("left")
+                    leftIsDown = True
+                    downLast = "left"
                 if event.key == pygame.K_u:
                     print player.playerSpeedx()
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_w or event.key == pygame.K_UP:
                     player.go("stop up")
-                if event.key == pygame.K_s or event.key == pygame.K_DOWN:
-                    player.go("stop down")
                 if event.key == pygame.K_d or event.key == pygame.K_RIGHT:
-                    player.go("stop right")
+                    rightIsDown = False
                 if event.key == pygame.K_a or event.key == pygame.K_LEFT:
-                    player.go("stop left")
+                    leftIsDown = False
             if event.type == pygame.MOUSEMOTION:
                 pygame.mouse.set_visible(True)
                 arm.aim(event.pos)
@@ -132,6 +140,16 @@ while True:
                     shooting = None
                 if event.button == 3:
                     shooting = None
+    
+    if debug: print "after events: ", time.time() - startTime
+    if rightIsDown and not leftIsDown:
+        player.go("right")
+    elif leftIsDown and not rightIsDown:
+        player.go("left")
+    elif rightIsDown and leftIsDown:
+        player.go(downLast)
+    else:
+        player.go("stop "+downLast)
         
     if shooting:
         if shooting == "normal":
@@ -140,7 +158,8 @@ while True:
         elif shooting == "alt":
             Bullet(player.rect.center, arm.angle)
 
-   
+    if debug: print "after input handled: ", time.time() - startTime
+
     player.update(walls)
     arm.update()
     for bullet in bullets:
@@ -149,7 +168,8 @@ while True:
         ball.update(walls)
         ball.bounceScreen(size)
 
-
+    if debug: print "after updates done: ", time.time() - startTime
+    
     if player.rect.right >= 500:
             diff = player.rect.right - 500
             player.rect.right = 500
@@ -159,11 +179,18 @@ while True:
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
 
+<<<<<<< HEAD
     
     ballsHit = pygame.sprite.spritecollide(player, balls, True)
+=======
+    if debug: print "after scrolling done: ", time.time() - startTime
+    ballsHit = pygame.sprite.spritecollide(player, balls, False)
+>>>>>>> origin/master
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
+    
+    if debug: print "after collision groups created: ", time.time() - startTime
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
@@ -175,9 +202,12 @@ while True:
             arm.kind = "AK47"
         
     
+    if debug: print "after ball/player collision group: ", time.time() - startTime
+    
     bgColor = r,g,b
     screen.fill(bgColor)
     screen.blit(bg.image, bg.rect)
+    if debug: print "after bg render: ", time.time() - startTime
     for ball in balls:
         screen.blit(ball.image, ball.rect)
     for bullet in bullets:
@@ -192,6 +222,9 @@ while True:
         screen.blit(wall.image, wall.rect)
     pygame.display.flip()
     clock.tick(60)
+    
+    if debug: print "after render: ", time.time() - startTime, ", fps:", clock.get_fps()
+
 
 
  
