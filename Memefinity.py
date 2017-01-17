@@ -160,14 +160,20 @@ while True:
             level.shiftWorld([movingObjects], diff)
 
     
-    ballsHit = pygame.sprite.spritecollide(player, balls, False)
+    ballsHit = pygame.sprite.spritecollide(player, balls, True)
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+    playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
     
     for ball in ballsHit:
         ball.bounceBall(PlayerMeme)
         player.hitBall(ball)
         ball.speedx = -ball.speedx
+        
+    for pickup in playerHitspickups: 
+        if pickup.kind == "AK47": 
+            arm.kind = "AK47"
+        
     
     bgColor = r,g,b
     screen.fill(bgColor)
@@ -189,7 +195,7 @@ while True:
 
 
  
-    
+
     
     
     
