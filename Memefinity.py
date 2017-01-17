@@ -179,10 +179,16 @@ while True:
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
 
+<<<<<<< HEAD
+    
+    ballsHit = pygame.sprite.spritecollide(player, balls, True)
+=======
     if debug: print "after scrolling done: ", time.time() - startTime
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
+>>>>>>> origin/master
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+    playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
     
     if debug: print "after collision groups created: ", time.time() - startTime
     
@@ -190,6 +196,11 @@ while True:
         ball.bounceBall(PlayerMeme)
         player.hitBall(ball)
         ball.speedx = -ball.speedx
+        
+    for pickup in playerHitspickups: 
+        if pickup.kind == "AK47": 
+            arm.kind = "AK47"
+        
     
     if debug: print "after ball/player collision group: ", time.time() - startTime
     
@@ -217,7 +228,7 @@ while True:
 
 
  
-    
+
     
     
     
