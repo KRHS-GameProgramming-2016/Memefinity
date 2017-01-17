@@ -186,8 +186,6 @@ while True:
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
 
-    
-    ballsHit = pygame.sprite.spritecollide(player, balls, True)
 
     if debug: print "after scrolling done: ", time.time() - startTime
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
