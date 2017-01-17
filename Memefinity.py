@@ -186,13 +186,9 @@ while True:
             player.rect.left = 120
             level.shiftWorld([movingObjects], diff)
 
-<<<<<<< HEAD
-    
-    ballsHit = pygame.sprite.spritecollide(player, balls, True)
-=======
+
     if debug: print "after scrolling done: ", time.time() - startTime
     ballsHit = pygame.sprite.spritecollide(player, balls, False)
->>>>>>> origin/master
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
