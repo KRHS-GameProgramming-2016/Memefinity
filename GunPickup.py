@@ -5,13 +5,13 @@ class GunPickup(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.containers)
         
         self.kind = kind 
-        if self.kind == "AK47": 
-            self.image = pygame.image.load("rsc/ball/bullet.png")
-        elif self.kind == "pistol": 
-            self.image = pygame.image.load("rsc/ball/bullet.png")
+        if self.kind == "health": 
+            self.image = pygame.image.load("rsc/ball/Health.png")
+        
         if size:
             self.image = pygame.transform.scale(self.image, [size,size])
         self.rect = self.image.get_rect(center = pos)
+        self.value = 50
         #arm.gun = self.kind
         
     def shiftX(self, amount):

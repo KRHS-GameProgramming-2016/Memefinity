@@ -16,6 +16,7 @@ class Level():
         
     def shiftWorld(self, groups, amount):
         self.world_shift += amount
+    
         for group in groups:
             for item in group.sprites():
                 item.shiftX(amount)
@@ -82,7 +83,7 @@ class Level():
                         self.tileSize)
                         
                 if c == '1': 
-                    GunPickup("AK47",
+                    GunPickup("health",
                            [x*self.tileSize + self.tileSize/2,
                             y*self.tileSize + self.tileSize/2],
                             self.tileSize)

@@ -53,6 +53,7 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.speedx = 0
         self.speedy = 0
         self.face = "right"
+        self.side = "right"
         self.angle = 0
         self.speed = [self.speedx, self.speedy]
         self.radius = self.rect.width/3 -1
@@ -63,15 +64,23 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
         self.hp = 100
+        self.living = True
+        
+    
+    def heal(self, amount):
+        self.hp += amount
     
     def playerSpeedx(self):
             return self.speedx
 
     def hitBall(self, ball):
         self.hp -= ball.damage
+        print self.hp
 
     def update(self, walls):
         # Gravity
+        if self.hp <= 0:
+            self.living = False
         self.animate()
         self.calc_grav()
  

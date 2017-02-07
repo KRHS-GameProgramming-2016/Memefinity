@@ -1,4 +1,4 @@
-debug = False
+debug = False 
 
 import pygame, sys, math, random, time
 from Meme import *
@@ -104,7 +104,10 @@ if debug: startTime = time.time()
 fireRate = arm.gun.fireRate
 fireTimer = 0
 
-while True:
+print "Pickups: ", pickups.sprites()[0].rect.center
+print "player: ", players.sprites()[0].rect.center
+
+while player.living :
     if debug: print "last loop total: ", time.time() - startTime
     if debug: print "--------------------------------------------------------------------------------"
     if debug: startTime = time.time()
@@ -188,7 +191,7 @@ while True:
 
 
     if debug: print "after scrolling done: ", time.time() - startTime
-    ballsHit = pygame.sprite.spritecollide(player, balls, False)
+    ballsHit = pygame.sprite.spritecollide(player, balls, True)
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
@@ -201,8 +204,7 @@ while True:
         ball.speedx = -ball.speedx
         
     for pickup in playerHitspickups: 
-        if pickup.kind == "AK47": 
-            arm.kind = "AK47"
+        player.heal(pickup.value)
         
     
     if debug: print "after ball/player collision group: ", time.time() - startTime
