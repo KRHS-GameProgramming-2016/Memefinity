@@ -4,6 +4,7 @@ from Meme import *
 from Player import *
 from Arm import *
 from GunPickup import *
+from Goal import *
 class Level():
     def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
@@ -21,9 +22,9 @@ class Level():
             for item in group.sprites():
                 item.shiftX(amount)
                 
-    def unloadLevel(self, groups): 
-        for group in groups:
-            group.empty()
+    def unloadLevel(self, theGroup): 
+        for s in theGroup.sprites():
+            s.kill()
                
     def loadLevel(self, levelNumber):       
         f = open("rsc/levels/level"+str(levelNumber)+".lvl", 'r')
@@ -87,7 +88,11 @@ class Level():
                            [x*self.tileSize + self.tileSize/2,
                             y*self.tileSize + self.tileSize/2],
                             self.tileSize)
-
+                                
+                if c == "$":
+                    self.goal = Goal([x*self.tileSize + self.tileSize/2,
+                                          y*self.tileSize + self.tileSize/2],
+                                          self.tileSize)
                                                 
 
         

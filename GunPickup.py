@@ -1,5 +1,6 @@
 import pygame, sys, math
 from Arm import *
+
 class GunPickup(pygame.sprite.Sprite):
     def __init__(self, kind, pos=[0,0], size=None):
         pygame.sprite.Sprite.__init__(self, self.containers)
