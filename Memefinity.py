@@ -9,6 +9,7 @@ from Player import *
 from Arm import * 
 from Bullet import *
 from GunPickup import *
+from Goal import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -21,6 +22,7 @@ screen = pygame.display.set_mode(size)
 bgColor = r,g,b = 0, 0, 0
 
 
+all = pygame.sprite.Group()
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
 walls = pygame.sprite.Group()
@@ -29,48 +31,29 @@ bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
 pickups = pygame.sprite.Group()
+goals = pygame.sprite.Group()
 
-PlayerMeme.containers = players
-Arm.containers = players
-Bullet.containers = bullets, movingObjects
-Background.containers = backgrounds, movingObjects
-Meme.containers = balls, movingObjects
-Wall.containers = walls,movingObjects
-Wall_5x5.containers = bigwalls, movingObjects
-Ground.containers = walls, movingObjects
-GunPickup.containers = pickups, movingObjects
+PlayerMeme.containers = players, all
+Arm.containers = players, all
+Bullet.containers = bullets, movingObjects, all
+Background.containers = backgrounds, movingObjects, all
+Meme.containers = balls, movingObjects, all
+Wall.containers = walls,movingObjects, all
+Wall_5x5.containers = bigwalls, movingObjects, all
+Ground.containers = walls, movingObjects, all
+GunPickup.containers = pickups, movingObjects, all
+Goal.containers = goals, movingObjects, all
 
 levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
 
-if levelNumber == 1:
-    bg = Background("BgLevel1.png")
-    level = Level(levelNumber, size)
+
+bg = Background("BgLevel1.png")
+level = Level(levelNumber, size)
     
 if levelNumber == 2:
     level = Level(levelNumber, size)
     
 if levelNumber == 3:
-    level = Level(levelNumber, size)
-
-if levelNumber == 4:
-    level = Level(levelNumber, size)
-
-if levelNumber == 5:
-    level = Level(levelNumber, size)
-
-if levelNumber == 6:
-    level = Level(levelNumber, size)
-
-if levelNumber == 7:
-    level = Level(levelNumber, size)
-
-if levelNumber == 8:
-    level = Level(levelNumber, size)
-
-if levelNumber == 9:
-    level = Level(levelNumber, size)
-
-if levelNumber == 10:
     level = Level(levelNumber, size)
 
 
@@ -192,6 +175,7 @@ while True:
     bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
     abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
     playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
+    playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
     
     if debug: print "after collision groups created: ", time.time() - startTime
     
@@ -204,6 +188,22 @@ while True:
         if pickup.kind == "AK47": 
             arm.kind = "AK47"
         
+    
+    for goal in playerHitgoals:
+        level.unloadLevel(all)
+        levelNumber += 1
+        if levelNumber == 2:
+            level = Level(levelNumber, size)
+        if levelNumber == 3:
+            level = Level(levelNumber, size)
+        for p in players.sprites():
+            if p.kind == "arm":
+                arm = p
+            else:
+                player = p
+        
+    #https://github.com/KRHS-GameProgramming-2016/Spikes-Evil-Maze-Game/blob/master/Game.py#L65
+    
     
     if debug: print "after ball/player collision group: ", time.time() - startTime
     
@@ -223,6 +223,8 @@ while True:
         screen.blit(wall.image, wall.rect)
     for wall in bigwalls:
         screen.blit(wall.image, wall.rect)
+    for goal in goals:
+        screen.blit(goal.image, goal.rect)
     pygame.display.flip()
     clock.tick(60)
     
