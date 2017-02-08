@@ -27,12 +27,6 @@ class Arm(pygame.sprite.Sprite):
         mousePosPlayerY = mousePos[1] - self.rect.center[1]
         self.angle = ((math.atan2(mousePosPlayerY, mousePosPlayerX))/math.pi)*180
         self.angle = -self.angle
-        if self.angle > 0 and self.angle < 90 or self.angle < 0 and self.angle > -90:
-            self.side = "right"
-        if self.angle <= 180 and self.angle >= 90 or self.angle >= -180 and self.angle <= -90:
-            self.side = "left"
-        if self.side == "left":
-            self.angle += 180
         rot_image = pygame.transform.rotate(self.baseImage, self.angle)
         rot_rect = self.rect.copy()
         rot_rect.center = rot_image.get_rect().center
