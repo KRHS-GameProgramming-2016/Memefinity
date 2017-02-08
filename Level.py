@@ -5,6 +5,7 @@ from Player import *
 from Arm import *
 from GunPickup import *
 from Goal import *
+from BetterBossMeme import * 
 class Level():
     def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
@@ -93,6 +94,10 @@ class Level():
                     self.goal = Goal([x*self.tileSize + self.tileSize/2,
                                           y*self.tileSize + self.tileSize/2],
                                           self.tileSize)
+                if c == '2': 
+                    BossMeme([x*self.tileSize + self.tileSize/2,
+                            y*self.tileSize + self.tileSize/2],
+                            self.tileSize)
                                                 
 
         

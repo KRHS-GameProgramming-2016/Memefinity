@@ -10,6 +10,7 @@ from Arm import *
 from Bullet import *
 from GunPickup import *
 from Goal import *
+from BetterBossMeme import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -25,6 +26,7 @@ bgColor = r,g,b = 0, 0, 0
 all = pygame.sprite.Group()
 players = pygame.sprite.Group()
 balls = pygame.sprite.Group()
+bosses = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 backgrounds = pygame.sprite.Group() 
 bigwalls = pygame.sprite.Group()
@@ -38,6 +40,7 @@ Arm.containers = players, all
 Bullet.containers = bullets, movingObjects, all
 Background.containers = backgrounds, movingObjects, all
 Meme.containers = balls, movingObjects, all
+BossMeme.containers = bosses, movingObjects, all
 Wall.containers = walls,movingObjects, all
 Wall_5x5.containers = bigwalls, movingObjects, all
 Ground.containers = walls, movingObjects, all
@@ -92,7 +95,7 @@ print "player: ", players.sprites()[0].rect.center
 
 while player.living :
     if debug: print "last loop total: ", time.time() - startTime
-    if debug: print "--------------------------------------------------------------------------------"
+    if debug: print "--------------------------a------------------------------------------------------"
     if debug: startTime = time.time()
     for event in pygame.event.get():
         if event.type == pygame.QUIT: sys.exit()
@@ -214,6 +217,8 @@ while player.living :
     screen.blit(bg.image, bg.rect)
     if debug: print "after bg render: ", time.time() - startTime
     for ball in balls:
+        screen.blit(ball.image, ball.rect)
+    for ball in bosses:
         screen.blit(ball.image, ball.rect)
     for bullet in bullets:
         screen.blit(bullet.image, bullet.rect)
