@@ -231,6 +231,8 @@ while True:
         if debug: print "after bg render: ", time.time() - startTime
         for ball in balls:
             screen.blit(ball.image, ball.rect)
+        for ball in bossesas:
+            screen.blit(ball.image, ball.rect)
         for bullet in bullets:
             screen.blit(bullet.image, bullet.rect)
         for pickup in pickups:
