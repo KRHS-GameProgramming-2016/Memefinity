@@ -52,7 +52,8 @@ Goal.containers = goals, movingObjects, all
 
 while True:
     movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
-    movie_screen = pygame.Surface(movie.get_size()).convert()
+    movie_screen = pygame.Surface(size)
+    movie_rect = movie_screen.get_rect()
 
     movie.set_display(movie_screen)
     movie.play()
@@ -68,7 +69,7 @@ while True:
             movie.stop()
             movie.stop()
             playing = False
-        screen.blit(movie_screen,(0,0))
+        screen.blit(movie_screen, movie_rect)
         pygame.display.update()
         clock.tick(60)
         
