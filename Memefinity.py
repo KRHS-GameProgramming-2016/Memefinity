@@ -51,6 +51,8 @@ Goal.containers = goals, movingObjects, all
 
 
 while True:
+    pygame.mixer.quit()
+    
     movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
     movie_screen = pygame.Surface(size)
     movie_rect = movie_screen.get_rect()
