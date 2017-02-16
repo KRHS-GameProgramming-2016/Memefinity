@@ -51,14 +51,26 @@ Goal.containers = goals, movingObjects, all
 
 
 while True:
-    start = False
-    while not start:
+    movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
+    movie_screen = pygame.Surface(size)
+    movie_rect = movie_screen.get_rect()
+
+    movie.set_display(movie_screen)
+    movie.play()
+
+    playing = True
+    while playing:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    start = True 
-        pygame.display.flip()
+            if event.type == pygame.QUIT:
+                movie.stop()
+                pygame.quit()
+        
+        if not movie.get_busy():
+            movie.stop()
+            movie.stop()
+            playing = False
+        screen.blit(movie_screen, movie_rect)
+        pygame.display.update()
         clock.tick(60)
         
     levelNumber = 1 #REMOVE THIS IT WILL CAUSE PROBLEMS IN THE LATER
@@ -231,6 +243,8 @@ while True:
         if debug: print "after bg render: ", time.time() - startTime
         for ball in balls:
             screen.blit(ball.image, ball.rect)
+        for ball in bosses:
+            screen.blit(ball.image, ball.rect)
         for bullet in bullets:
             screen.blit(bullet.image, bullet.rect)
         for pickup in pickups:
@@ -251,10 +265,6 @@ while True:
     level.unloadLevel(all)
 
 
-
-     
-
-        
     
     
     
