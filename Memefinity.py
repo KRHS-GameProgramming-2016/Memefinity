@@ -47,7 +47,10 @@ Ground.containers = walls, movingObjects, all
 GunPickup.containers = pickups, movingObjects, all
 Goal.containers = goals, movingObjects, all
 
-
+#video transcode command:
+"""
+ffmpeg -i memefinityloading.mp4 -vcodec mpeg1video -b:v 2048k -acodec libmp3lame -s 1280x720 -intra memefinityloading.mpg
+"""
 
 
 while True:
