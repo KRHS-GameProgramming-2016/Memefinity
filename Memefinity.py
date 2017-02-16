@@ -1,6 +1,6 @@
 debug = False 
 
-import pygame, sys, math, random, time
+import pygame, sys, math, random, time, pygame.mixer
 from Meme import *
 from Bossmeme import *
 from Wall import *
@@ -19,7 +19,7 @@ width = 1280
 height = 720
 size = width, height
 screen = pygame.display.set_mode(size)
-
+#sound = pygame.mixer.Sound('rsc/memefinityloading.mpg')
 bgColor = r,g,b = 0, 0, 0
 
 
@@ -51,12 +51,14 @@ Goal.containers = goals, movingObjects, all
 
 
 while True:
+    pygame.mixer.quit()
     movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
     movie_screen = pygame.Surface(size)
     movie_rect = movie_screen.get_rect()
 
     movie.set_display(movie_screen)
     movie.play()
+    #sound.play
 
     playing = True
     while playing:
