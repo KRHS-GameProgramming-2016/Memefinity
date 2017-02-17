@@ -52,28 +52,38 @@ Goal.containers = goals, movingObjects, all
 ffmpeg -i memefinityloading.mp4 -vcodec mpeg1video -b:v 2048k -acodec libmp3lame -s 1280x720 -intra memefinityloading.mpg
 """
 
+pygame.mixer.quit()
+
+movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
+movie_screen = pygame.Surface(size)
+movie_rect = movie_screen.get_rect()
+
+movie.set_display(movie_screen)
+movie.play()
+
+playing = True
+while playing:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            movie.stop()
+            pygame.quit()
+    
+    if not movie.get_busy():
+        movie.stop()
+        movie.stop()
+        playing = False
+    screen.blit(movie_screen, movie_rect)
+    pygame.display.update()
+    clock.tick(60)
 
 while True:
-    pygame.mixer.quit()
-    
-    movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
-    movie_screen = pygame.Surface(size)
-    movie_rect = movie_screen.get_rect()
-
-    movie.set_display(movie_screen)
-    movie.play()
-
-    playing = True
-    while playing:
+    menu = True
+    while menu:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                movie.stop()
-                pygame.quit()
-        
-        if not movie.get_busy():
-            movie.stop()
-            movie.stop()
-            playing = False
+            if event.type == pygame.QUIT: sys.exit()
+            if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        menu = False
         screen.blit(movie_screen, movie_rect)
         pygame.display.update()
         clock.tick(60)
