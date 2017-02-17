@@ -4,7 +4,7 @@ import pygame, sys, math
 
 
 class BossMeme(pygame.sprite.Sprite):
-    def __init__(self, pos=[0,0], size=100):
+    def __init__(self, pos=[0,0], size=None):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("rsc/ball/ball.png")
         if size:
