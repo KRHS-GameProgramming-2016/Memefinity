@@ -35,9 +35,11 @@ class Ground(pygame.sprite.Sprite):
 
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, image):
+    def __init__(self, image, size = None):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("rsc/ball/"+image)
+        if size:
+            self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
         
     def shiftX(self, amount):

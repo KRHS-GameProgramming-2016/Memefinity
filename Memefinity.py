@@ -78,13 +78,14 @@ while playing:
 
 while True:
     menu = True
+    bg = Background("playbutton.png", size)
     while menu:
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         menu = False
-        screen.blit(movie_screen, movie_rect)
+        screen.blit(bg.image, bg.rect)
         pygame.display.update()
         clock.tick(60)
         
