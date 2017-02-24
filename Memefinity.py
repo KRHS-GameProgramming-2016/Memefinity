@@ -165,7 +165,7 @@ while True:
                     player.aim(event.pos)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        shooting = "normal"
+                        shooting = "alt"
                     if event.button == 3:
                         shooting = "alt"
                 if event.type == pygame.MOUSEBUTTONUP:
