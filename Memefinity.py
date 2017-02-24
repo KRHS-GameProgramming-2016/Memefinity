@@ -31,6 +31,7 @@ walls = pygame.sprite.Group()
 backgrounds = pygame.sprite.Group() 
 bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
+
 bullets = pygame.sprite.Group()
 pickups = pygame.sprite.Group()
 goals = pygame.sprite.Group()
