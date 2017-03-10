@@ -31,10 +31,10 @@ walls = pygame.sprite.Group()
 backgrounds = pygame.sprite.Group() 
 bigwalls = pygame.sprite.Group()
 movingObjects = pygame.sprite.Group()
-
 bullets = pygame.sprite.Group()
 pickups = pygame.sprite.Group()
 goals = pygame.sprite.Group()
+boss = pygame.sprite.Group()
 
 PlayerMeme.containers = players, all
 Arm.containers = players, all
@@ -221,9 +221,10 @@ while True:
         if debug: print "after scrolling done: ", time.time() - startTime
         ballsHit = pygame.sprite.spritecollide(player, balls, True)
         bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
-        abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+        bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
+        playerHitsboss = pygame.sprite.spritecollide(player, boss, True)
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
@@ -279,7 +280,10 @@ while True:
         
         if debug: print "after render: ", time.time() - startTime, ", fps:", clock.get_fps()
     
-    level.unloadLevel(all)
+    level.unloadLevel(all) 
+    
+while BetterBossMeme.living : 
+    shooting = "alt" 
 
 
     
