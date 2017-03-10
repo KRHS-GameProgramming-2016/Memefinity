@@ -221,7 +221,7 @@ while True:
         if debug: print "after scrolling done: ", time.time() - startTime
         ballsHit = pygame.sprite.spritecollide(player, balls, True)
         bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
-        abulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
+        bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
         
