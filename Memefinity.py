@@ -68,9 +68,12 @@ while playing:
         if event.type == pygame.QUIT:
             movie.stop()
             pygame.quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                movie.stop()
+                playing = False
     
-    if not movie.get_busy():
-        movie.stop()
+    if not movie.get_busy() and playing:
         movie.stop()
         playing = False
     screen.blit(movie_screen, movie_rect)
@@ -224,7 +227,7 @@ while True:
         bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
-        playerHitsboss = pygame.sprite.spritecollide(player, boss, True)
+        playerHitsboss = pygame.sprite.spritecollide(player, bosses, False)
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
@@ -233,6 +236,9 @@ while True:
             player.hitBall(ball)
             ball.speedx = -ball.speedx
             
+        for boss in playerHitsboss:
+            player.hitBall(boss)
+        
         for pickup in playerHitspickups: 
             player.heal(pickup.value)
             

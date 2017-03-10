@@ -16,6 +16,7 @@ class BossMeme(pygame.sprite.Sprite):
         self.didBounceX = False
         self.didBounceY = False
         self.screenHeight = screensize[1]
+        
 
     def shiftX(self, amount):
         self.rect.x += amount
