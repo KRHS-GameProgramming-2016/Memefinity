@@ -13,6 +13,7 @@ class GunPickup(pygame.sprite.Sprite):
             self.image = pygame.transform.scale(self.image, [size,size])
         self.rect = self.image.get_rect(center = pos)
         self.value = 50
+        self.damage = 50
         #arm.gun = self.kind
         
     def shiftX(self, amount):
