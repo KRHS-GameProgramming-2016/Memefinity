@@ -227,8 +227,8 @@ while True:
         bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
-        playerHitsboss = pygame.sprite.spritecollide(player, bosses, False)
-        bulletsHitboss = pygame.sprite.groupcollide(bullets, bosses, True, False)
+        playerHitsbosses = pygame.sprite.spritecollide(player, bosses, False)
+        bulletsHitbosses = pygame.sprite.groupcollide(bullets, bosses, True, False)
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
@@ -237,8 +237,12 @@ while True:
             player.hitBall(ball)
             ball.speedx = -ball.speedx
             
-        for boss in playerHitsboss:
+        for boss in playerHitsbosses:
             player.hitBall(boss)
+        
+        for bullet in bulletsHitbosses:
+            for boss in bulletsHitbosses[bullet]:
+                boss.hitBullet(bullet)
         
         for pickup in playerHitspickups: 
             player.heal(pickup.value)

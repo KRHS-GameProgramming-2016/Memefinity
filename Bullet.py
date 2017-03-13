@@ -80,6 +80,7 @@ class Bullet(pygame.sprite.Sprite):
         self.radius = self.rect.height/2 
         self.timer = 0
         self.timerMax = 2*60
+        self.damage = 50
         
     def update(self):
         self.move() 
