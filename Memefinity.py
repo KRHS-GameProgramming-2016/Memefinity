@@ -228,6 +228,7 @@ while True:
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
         playerHitsboss = pygame.sprite.spritecollide(player, bosses, False)
+        bulletsHitboss = pygame.sprite.groupcollide(bullets, bosses, True, False)
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
