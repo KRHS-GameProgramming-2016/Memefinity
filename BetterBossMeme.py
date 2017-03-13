@@ -1,4 +1,5 @@
-import pygame, sys, math 
+import pygame, sys, math
+from Meme import *
 
 class BossMeme(pygame.sprite.Sprite):
     def __init__(self, pos=[0,0], size=None):
