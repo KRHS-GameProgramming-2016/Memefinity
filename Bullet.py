@@ -18,6 +18,7 @@ class Gun(pygame.sprite.Sprite):
         self.offset = [43,36]
         self.rect = self.image.get_rect()
         self.angle =0
+        self.damage = 50
 
 
         
