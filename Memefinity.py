@@ -208,9 +208,9 @@ while True:
         for ball in balls:
             ball.update(walls)
             ball.bounceScreen(size)
-        for boss in bosses:
-            boss.update(walls)
-            boss.bounceScreen(size)
+ #       for boss in bosses:
+ #           boss.update(walls)
+  #          boss.bounceScreen(size)
 
         if debug: print "after updates done: ", time.time() - startTime
         
