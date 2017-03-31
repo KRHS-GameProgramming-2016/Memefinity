@@ -6,3 +6,4 @@ class Gun():
         
         if kind == "M4A1":
             self.fireRate = 60*.25
+

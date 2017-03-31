@@ -94,7 +94,7 @@ class Meme(pygame.sprite.Sprite):
             self.speedy = -self.speedy
             self.didBounceY = True
             
-    def bounceBall(self, other):
+    def bounceMeme(self, other):
         if not self.didBounceX:
             self.speedx = -self.speedx
         if not self.didBounceY:

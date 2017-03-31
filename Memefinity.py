@@ -25,7 +25,7 @@ bgColor = r,g,b = 0, 0, 0
 
 all = pygame.sprite.Group()
 players = pygame.sprite.Group()
-balls = pygame.sprite.Group()
+memes = pygame.sprite.Group()
 bosses = pygame.sprite.Group()
 walls = pygame.sprite.Group()
 backgrounds = pygame.sprite.Group() 
@@ -40,7 +40,7 @@ PlayerMeme.containers = players, all
 Arm.containers = players, all
 Bullet.containers = bullets, movingObjects, all
 Background.containers = backgrounds, movingObjects, all
-Meme.containers = balls, movingObjects, all
+Meme.containers = memes, movingObjects, all
 BossMeme.containers = bosses, movingObjects, all
 Wall.containers = walls,movingObjects, all
 Wall_5x5.containers = bigwalls, movingObjects, all
@@ -170,10 +170,14 @@ while True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         shooting = "alt"
+                    if event.button == 2:
+                        shooting = "beam"
                     if event.button == 3:
                         shooting = "alt"
                 if event.type == pygame.MOUSEBUTTONUP:
                     if event.button == 1:
+                        shooting = None
+                    if event.button == 2:
                         shooting = None
                     if event.button == 3:
                         shooting = None
@@ -198,6 +202,12 @@ while True:
                 else:
                     fireTimer = 0
                     Bullet(player.rect.center, arm.angle)
+            elif shooting == "beam":
+                if fireTimer < fireRate:
+                    fireTimer += 1
+                else:
+                    fire = 0
+                    Bullet(player.rect.center, arm.angle)
 
         if debug: print "after input handled: ", time.time() - startTime
 
@@ -205,9 +215,9 @@ while True:
         arm.update()
         for bullet in bullets:
             bullet.update()
-        for ball in balls:
-            ball.update(walls)
-            ball.bounceScreen(size)
+        for meme in memes:
+            meme.update(walls)
+            meme.bounceScreen(size)
  #       for boss in bosses:
  #           boss.update(walls)
   #          boss.bounceScreen(size)
@@ -225,8 +235,8 @@ while True:
 
 
         if debug: print "after scrolling done: ", time.time() - startTime
-        ballsHit = pygame.sprite.spritecollide(player, balls, True)
-        bulletsHitBalls = pygame.sprite.groupcollide(bullets, balls, True, True)
+        memesHit = pygame.sprite.spritecollide(player, memes, True)
+        bulletsHitMemes = pygame.sprite.groupcollide(bullets, memes, True, True)
         bulletsHitWalls = pygame.sprite.groupcollide(bullets, walls, True, False)
         playerHitspickups = pygame.sprite.spritecollide(player, pickups, True) 
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
@@ -235,13 +245,13 @@ while True:
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
-        for ball in ballsHit:
-            ball.bounceBall(PlayerMeme)
-            player.hitBall(ball)
-            ball.speedx = -ball.speedx
+        for meme in memesHit:
+            meme.bounceMeme(PlayerMeme)
+            player.hitMeme(meme)
+            meme.speedx = -meme.speedx
             
         for boss in playerHitsbosses:
-            player.hitBall(boss)
+            player.hitMeme(boss)
         
         for bullet in bulletsHitbosses:
             for boss in bulletsHitbosses[bullet]:
@@ -267,16 +277,16 @@ while True:
         #https://github.com/KRHS-GameProgramming-2016/Spikes-Evil-Maze-Game/blob/master/Game.py#L65
         
         
-        if debug: print "after ball/player collision group: ", time.time() - startTime
+        if debug: print "after meme/player collision group: ", time.time() - startTime
         
         bgColor = r,g,b
         screen.fill(bgColor)
         screen.blit(bg.image, bg.rect)
         if debug: print "after bg render: ", time.time() - startTime
-        for ball in balls:
-            screen.blit(ball.image, ball.rect)
-        for ball in bosses:
-            screen.blit(ball.image, ball.rect)
+        for meme in memes:
+            screen.blit(meme.image, meme.rect)
+        for meme in bosses:
+            screen.blit(meme.image, meme.rect)
         for bullet in bullets:
             screen.blit(bullet.image, bullet.rect)
         for pickup in pickups:

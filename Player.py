@@ -73,8 +73,8 @@ class PlayerMeme(pygame.sprite.Sprite):
     def playerSpeedx(self):
             return self.speedx
 
-    def hitBall(self, ball):
-        self.hp -= ball.damage
+    def hitMeme(self, meme):
+        self.hp -= meme.damage
         print self.hp
 
     def update(self, walls):
