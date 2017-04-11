@@ -218,9 +218,9 @@ while True:
         for meme in memes:
             meme.update(walls)
             meme.bounceScreen(size)
- #       for boss in bosses:
- #           boss.update(walls)
-  #          boss.bounceScreen(size)
+        for boss in bosses:
+            boss.update(walls)
+            boss.bounceScreen(size)
 
         if debug: print "after updates done: ", time.time() - startTime
         

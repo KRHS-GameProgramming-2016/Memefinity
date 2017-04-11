@@ -63,7 +63,7 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.animationTimer = 0
         self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
-        self.hp = 100
+        self.hp = 1000000000
         self.living = True
         
     
@@ -157,6 +157,7 @@ class PlayerMeme(pygame.sprite.Sprite):
             else:
                 self.frame = 0
             self.image = self.images[self.frame]
+  
     def aim(self, mousePos):
         #finds which way a player is facing
         mousePosPlayerX = mousePos[0] - self.rect.center[0]

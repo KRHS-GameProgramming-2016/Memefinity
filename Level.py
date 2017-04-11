@@ -95,7 +95,8 @@ class Level():
                                           y*self.tileSize + self.tileSize/2],
                                           self.tileSize)
                 if c == '2': 
-                    BossMeme([x*self.tileSize + self.tileSize/2,
+                    BossMeme(self.size,
+                            [x*self.tileSize + self.tileSize/2,
                             y*self.tileSize + self.tileSize/2],
                             self.tileSize)
                                                 
