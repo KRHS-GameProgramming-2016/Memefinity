@@ -274,10 +274,7 @@ while True:
         for goal in playerHitgoals:
             level.unloadLevel(all)
             levelNumber += 1
-            if levelNumber == 2:
-                level = Level(levelNumber, size)
-            if levelNumber == 3:
-                level = Level(levelNumber, size)
+            level = Level(levelNumber, size)
             for p in players.sprites():
                 if p.kind == "arm":
                     arm = p
