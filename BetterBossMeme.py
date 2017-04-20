@@ -4,7 +4,7 @@ from Meme import *
 class BossMeme(pygame.sprite.Sprite):
     def __init__(self, screensize, pos=[0,0], size=None):
         pygame.sprite.Sprite.__init__(self, self.containers)
-        self.image = pygame.image.load("rsc/ball/ball.png")
+        self.image = pygame.image.load("rsc/ball/trumpv1.png")
         if size:
             self.image = pygame.transform.scale(self.image, [size*10,size*10])
         self.rect = self.image.get_rect(center = pos)
@@ -12,6 +12,7 @@ class BossMeme(pygame.sprite.Sprite):
         self.hp = 500
         self.speedy = 0
         self.speedx = 5
+        self.speed = [self.speedx, self.speedy]
         self.screenHeight = screensize[1]
     
     def shiftX(self, amount):
@@ -29,7 +30,7 @@ class BossMeme(pygame.sprite.Sprite):
         if key == "center":
             return self.rect.center
         
-    def update(self, walls):
+    def update(self, walls, player):
        
         self.calc_grav()
  
@@ -53,6 +54,15 @@ class BossMeme(pygame.sprite.Sprite):
             elif self.speedy < 0:
                 self.rect.top = block.rect.bottom
                 self.speedy = 0
+        
+        posPlayer = player.getPos()        
+        if self.dist(posPlayer) < 1000:
+            posPlayerX = posPlayer[0]
+            posPlayerY = posPlayer[1]
+            self.angle = float(((math.atan2(posPlayerY, -posPlayerX))/math.pi)*240)
+            self.angle = -self.angle
+            print "shoot"
+            BossBullet(self.rect.center, self.angle)
     
     def jump(self, walls):
         self.rect.y += 2
@@ -80,12 +90,21 @@ class BossMeme(pygame.sprite.Sprite):
         if (self.rect.y >= (self.screenHeight - self.rect.height)) and (self.speedy >= 0):
             self.speedy = 0
             self.rect.y = self.screenHeight - self.rect.height 
+            
+    def dist(self, pt):
+        x1 = self.rect.center[0]
+        y1 = self.rect.center[1]
+        x2 = pt[0]
+        y2 = pt[1]
+        xDiff = x1 - x2
+        yDiff = y1 - y2
+        return math.sqrt(xDiff**2 + yDiff**2)  
  
             
 class BossBullet(pygame.sprite.Sprite):
     def __init__(self, pos, angle):
         pygame.sprite.Sprite.__init__(self, self.containers)
-        self.image = pygame.transform.scale(pygame.image.load("rsc/ball/bullet.png"), [50, 50])
+        self.image = pygame.transform.scale(pygame.image.load("rsc/ball/bossbullet.png"), [50, 50])
         self.rect = self.image.get_rect()
         self.living = True
         self.angle = angle
@@ -126,6 +145,7 @@ class BossBullet(pygame.sprite.Sprite):
             return True
         return False 
             
+    
     def place(self, pos):
         self.rect.center = pos 
         

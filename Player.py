@@ -63,7 +63,7 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.animationTimer = 0
         self.animationTimerMax = .05 * 60 #seconds * 60 fps
         self.screenHeight = screensize[1]
-        self.hp = 1000000000
+        self.hp = 100
         self.living = True
         
     
@@ -77,6 +77,10 @@ class PlayerMeme(pygame.sprite.Sprite):
         self.hp -= meme.damage
         print self.hp
 
+    def hitBossbullet(self, bossbullets):
+        self.hp -= bossbullets.damage
+        print self.hp
+        
     def update(self, walls):
         # Gravity
         if self.hp <= 0:

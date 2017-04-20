@@ -35,10 +35,12 @@ bullets = pygame.sprite.Group()
 pickups = pygame.sprite.Group()
 goals = pygame.sprite.Group()
 boss = pygame.sprite.Group()
+bossbullets = pygame.sprite.Group()
 
 PlayerMeme.containers = players, all
 Arm.containers = players, all
 Bullet.containers = bullets, movingObjects, all
+BossBullet.containers = bossbullets, movingObjects, all
 Background.containers = backgrounds, movingObjects, all
 Meme.containers = memes, movingObjects, all
 BossMeme.containers = bosses, movingObjects, all
@@ -215,11 +217,13 @@ while True:
         arm.update()
         for bullet in bullets:
             bullet.update()
+        for bossbullet in bossbullets:
+            bossbullet.update()
         for meme in memes:
             meme.update(walls)
             meme.bounceScreen(size)
         for boss in bosses:
-            boss.update(walls)
+            boss.update(walls, player)
             boss.bounceScreen(size)
 
         if debug: print "after updates done: ", time.time() - startTime
@@ -242,6 +246,9 @@ while True:
         playerHitgoals = pygame.sprite.spritecollide(player, goals, False) 
         playerHitsbosses = pygame.sprite.spritecollide(player, bosses, False)
         bulletsHitbosses = pygame.sprite.groupcollide(bullets, bosses, True, False)
+        playerHitbossbullets = pygame.sprite.spritecollide(player, bossbullets, True)
+        bossbulletsHitWalls = pygame.sprite.groupcollide(bossbullets, walls, True, False)
+
         
         if debug: print "after collision groups created: ", time.time() - startTime
         
@@ -256,6 +263,9 @@ while True:
         for bullet in bulletsHitbosses:
             for boss in bulletsHitbosses[bullet]:
                 boss.hitBullet(bullet)
+                
+        for bossbullet in playerHitbossbullets:   
+            player.hitBossbullet(bossbullet)
         
         for pickup in playerHitspickups: 
             player.heal(pickup.value)
@@ -289,6 +299,8 @@ while True:
             screen.blit(meme.image, meme.rect)
         for bullet in bullets:
             screen.blit(bullet.image, bullet.rect)
+        for bossbullet in bossbullets:
+            screen.blit(bossbullet.image, bossbullet.rect)
         for pickup in pickups:
             screen.blit(pickup.image, pickup.rect)
         screen.blit(player.image, player.rect)
