@@ -126,6 +126,7 @@ class PlayerMeme(pygame.sprite.Sprite):
         if self.rect.bottom >= self.screenHeight and self.speedy >= 0:
             self.speedy = 0
             self.rect.bottom = self.screenHeight
+            self.hp = 0
     
     def getPos(self, key="center"):
         if key == "center":
