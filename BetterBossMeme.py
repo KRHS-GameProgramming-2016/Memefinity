@@ -6,7 +6,7 @@ class BossMeme(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self, self.containers)
         self.image = pygame.image.load("rsc/ball/trumpv1.png")
         if size:
-            self.image = pygame.transform.scale(self.image, [size*10,size*10])
+            self.image = pygame.transform.scale(self.image, [size*9,size*9])
         self.rect = self.image.get_rect(center = pos)
         self.damage = 10000
         self.hp = 500
@@ -120,7 +120,7 @@ class BossBullet(pygame.sprite.Sprite):
         self.place(pos)
         self.radius = self.rect.height/2 
         self.timer = 0
-        self.timerMax = 2*60
+        self.timerMax = 60
         self.damage = 50
         
     def update(self):
