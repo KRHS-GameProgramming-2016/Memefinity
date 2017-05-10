@@ -102,9 +102,11 @@ while True:
         
     if levelNumber == 2:
         level = Level(levelNumber, size)
+        bg = Background("BgLevel1.png")
         
     if levelNumber == 3:
         level = Level(levelNumber, size)
+        bg = Background("BgLevel1.png")
 
 
     print len(walls.sprites())
@@ -275,6 +277,7 @@ while True:
             level.unloadLevel(all)
             levelNumber += 1
             level = Level(levelNumber, size)
+            bg = Background("BgLevel1.png")
             for p in players.sprites():
                 if p.kind == "arm":
                     arm = p
