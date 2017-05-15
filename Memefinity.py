@@ -206,12 +206,12 @@ while True:
                 else:
                     fireTimer = 0
                     Bullet(player.rect.center, arm.angle)
-            elif shooting == "beam":
-                if fireTimer < fireRate:
-                    fireTimer += 1
-                else:
-                    fire = 0
-                    Bullet(player.rect.center, arm.angle)
+            #elif shooting == "beam":
+                #if fireTimer < fireRate:
+                    #fireTimer += 1
+                #else:
+                    #fire = 0
+                    #Bullet(player.rect.center, arm.angle)
 
         if debug: print "after input handled: ", time.time() - startTime
 
