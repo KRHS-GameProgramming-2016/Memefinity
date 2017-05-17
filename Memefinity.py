@@ -319,7 +319,7 @@ while True:
     level.unloadLevel(all) 
     
 while BetterBossMeme.living :
-    shooting = "alt" 
+    shooting ="alt" 
 
 
     
