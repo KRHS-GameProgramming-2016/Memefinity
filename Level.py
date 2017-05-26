@@ -5,7 +5,8 @@ from Player import *
 from Arm import *
 from GunPickup import *
 from Goal import *
-from BetterBossMeme import * 
+from BetterBossMeme import *
+from EndFlag import * 
 class Level():
     def __init__(self, levelNumber, size, tileSize=50):
         self.tileSize = tileSize
@@ -99,6 +100,11 @@ class Level():
                             [x*self.tileSize + self.tileSize/2,
                             y*self.tileSize + self.tileSize/2],
                             self.tileSize)
+                if c == '3':
+					EndFlag([x*self.tileSize + self.tileSize/2,
+                                          y*self.tileSize + self.tileSize/2],
+                                          self.tileSize)
+
                                                 
 
         

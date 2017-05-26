@@ -11,6 +11,7 @@ from Bullet import *
 from GunPickup import *
 from Goal import *
 from BetterBossMeme import *
+from EndFlag import *
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -34,6 +35,7 @@ movingObjects = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
 pickups = pygame.sprite.Group()
 goals = pygame.sprite.Group()
+EndFlags = pygame.sprite.Group()
 boss = pygame.sprite.Group()
 bossbullets = pygame.sprite.Group()
 
@@ -49,6 +51,7 @@ Wall_5x5.containers = bigwalls, movingObjects, all
 Ground.containers = walls, movingObjects, all
 GunPickup.containers = pickups, movingObjects, all
 Goal.containers = goals, movingObjects, all
+EndFlag.containers = goals, movingObjects, all
 
 #video transcode command:
 """
@@ -250,6 +253,7 @@ while True:
         bulletsHitbosses = pygame.sprite.groupcollide(bullets, bosses, True, False)
         playerHitbossbullets = pygame.sprite.spritecollide(player, bossbullets, True)
         bossbulletsHitWalls = pygame.sprite.groupcollide(bossbullets, walls, True, False)
+        PlayerHitsEndFlag = pygame.sprite.spritecollide(player, EndFlags, False)
 
         
         if debug: print "after collision groups created: ", time.time() - startTime
@@ -260,6 +264,9 @@ while True:
             meme.speedx = -meme.speedx
             
         for boss in playerHitsbosses:
+            player.hitMeme(boss)
+            
+        for EndFlag in PlayerHitsEndFlag:
             player.hitMeme(boss)
         
         for bullet in bulletsHitbosses:
