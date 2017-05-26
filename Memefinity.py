@@ -51,7 +51,7 @@ Wall_5x5.containers = bigwalls, movingObjects, all
 Ground.containers = walls, movingObjects, all
 GunPickup.containers = pickups, movingObjects, all
 Goal.containers = goals, movingObjects, all
-EndFlag.containers = goals, movingObjects, all
+EndFlag.containers = EndFlags, movingObjects, all
 
 #video transcode command:
 """
