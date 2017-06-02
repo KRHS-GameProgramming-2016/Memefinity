@@ -12,6 +12,7 @@ from GunPickup import *
 from Goal import *
 from BetterBossMeme import *
 from EndFlag import *
+
 pygame.init()
 
 clock = pygame.time.Clock()
@@ -58,7 +59,7 @@ EndFlag.containers = EndFlags, movingObjects, all
 ffmpeg -i memefinityloading.mp4 -vcodec mpeg1video -b:v 2048k -acodec libmp3lame -s 1280x720 -intra memefinityloading.mpg
 """
 
-pygame.mixer.quit()
+#pygame.mixer.quit()
 
 movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
 movie_screen = pygame.Surface(size)
@@ -102,6 +103,7 @@ while True:
 
     bg = Background("BgLevel1.png")
     level = Level(levelNumber, size)
+    
         
     if levelNumber == 2:
         level = Level(levelNumber, size)
@@ -144,7 +146,13 @@ while True:
 
     print "Pickups: ", pickups.sprites()[0].rect.center
     print "player: ", players.sprites()[0].rect.center
-
+    
+    pygame.mixer.music.load("rsc/audio/Level "+ str(levelNumber) + " Audio.ogg")
+    pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+    pygame.mixer.music.play()
+    print "Volume:", pygame.mixer.music.get_volume()
+    print "Is playing:", pygame.mixer.music.get_busy()
+    
     while player.living :
         if debug: print "last loop total: ", time.time() - startTime
         if debug: print "--------------------------------------------------------------------------------"
@@ -163,6 +171,8 @@ while True:
                         downLast = "left"
                     if event.key == pygame.K_u:
                         print player.playerSpeedx()
+                    if event.key == pygame.K_m:
+                        print "music pos: ", pygame.mixer.music.get_pos()
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_w or event.key == pygame.K_UP:
                         player.go("stop up")
@@ -290,6 +300,10 @@ while True:
                     arm = p
                 else:
                     player = p
+            pygame.mixer.music.load("rsc/audio/Level "+ str(levelNumber) + " Audio.ogg")
+            pygame.mixer.music.play(-1)
+            print pygame.mixer.music.get_volume()
+            print pygame.mixer.music.get_busy()
             
         #https://github.com/KRHS-GameProgramming-2016/Spikes-Evil-Maze-Game/blob/master/Game.py#L65
         
