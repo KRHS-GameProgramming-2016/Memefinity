@@ -64,19 +64,23 @@ ffmpeg -i memefinityloading.mp4 -vcodec mpeg1video -b:v 2048k -acodec libmp3lame
 movie = pygame.movie.Movie('rsc/memefinityloading.mpg')
 movie_screen = pygame.Surface(size)
 movie_rect = movie_screen.get_rect()
-
 movie.set_display(movie_screen)
 movie.play()
+pygame.mixer.music.load("rsc/audio/Intro Music.ogg")
+pygame.mixer.music.set_endevent(pygame.constants.USEREVENT)
+pygame.mixer.music.play()
 
 playing = True
 while playing:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             movie.stop()
+            pygame.mixer.music.stop()
             pygame.quit()
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 movie.stop()
+                pygame.mixer.music.stop()
                 playing = False
     
     if not movie.get_busy() and playing:
